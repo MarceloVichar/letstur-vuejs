@@ -1,5 +1,5 @@
 import {defineRule, configure, Form, Field} from 'vee-validate';
-import {required, email} from '@vee-validate/rules';
+import {required, email, min, max, confirmed} from '@vee-validate/rules';
 import {localize, setLocale} from '@vee-validate/i18n'
 import pt_BR from '@vee-validate/i18n/dist/locale/pt_BR.json';
 import formsFieldNames from '~/support/formsFieldNames';
@@ -10,6 +10,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   defineRule('required', required);
   defineRule('email', email);
+  defineRule('min', min);
+  defineRule('max', max);
+  defineRule('confirmed', confirmed);
 
   defineRule('strongPassword', value => {
     if (!value || !value.length) {
@@ -35,6 +38,34 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
     return 'A data final deve ser posterior a data de início.';
   });
+});
+
+defineRule('cnpj', value => {
+  if (!value) {
+    return true;
+  }
+
+  if (!/^\d{14}$/.test(value)) {
+    return 'O CNPJ informado é inválido';
+  }
+
+  return true
+})
+
+defineRule('phone', value => {
+  if (!value) {
+    return true;
+  }
+
+  if (!/^\d+$/.test(value)) {
+    return 'O telefone deve conter apenas dígitos';
+  }
+
+  if (value.length < 10 || value.length > 11) {
+    return 'O telefone deve ter entre 10 e 11 dígitos';
+  }
+
+  return true;
 });
 
 localize({pt_BR});

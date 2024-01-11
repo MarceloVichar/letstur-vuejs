@@ -37,6 +37,12 @@ export const getQueryParam = (queryStringKey, defaultValue = null) => {
   return currentQueries[queryStringKey] || defaultValue
 }
 
+export const getRouteParam = (routeParamKey, defaultValue = '') => {
+  let currentRouteParams = []
+  currentRouteParams = route.params
+  return currentRouteParams[routeParamKey] || defaultValue
+}
+
 export const removeQueryParam = (queryStringKey) => {
   const router = useRouter()
   if (typeof queryStringKey === 'string' || queryStringKey instanceof String) {

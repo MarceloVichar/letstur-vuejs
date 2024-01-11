@@ -60,6 +60,15 @@
     .btn-primary {
         @apply text-base-100;
     }
+
+    .requiredField::after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+        vertical-align: -2px;
+    }
 }
 
 html, body, #__nuxt {

@@ -2,23 +2,23 @@
   <div class="overflow-x-auto rounded">
     <slot name="options" />
 
-    <table class="w-full border border-accent-content">
-      <thead>
+    <table class="w-full border-none lg:border border-accent-content">
+      <thead class="hidden lg:table-header-group">
         <slot name="header" :headers="headers">
-          <tr class="border-t border-x-0 border-b-2 border-accent-content shadow bg-base-100 text-primary">
+          <tr class="border-t border-x-0 border-b-2 border-accent-content shadow bg-base-100">
             <th
               v-for="header in headers"
-              :key="header.text"
+              :key="header.label"
               class="!rounded-b-none !static  capitalize text-sm p-3 text-start"
             >
-              {{ header.text }}
+              {{ header.label }}
             </th>
             <th v-if="actions?.length" />
           </tr>
         </slot>
       </thead>
 
-      <tbody>
+      <tbody class="grid grid-cols-1 md:grid-cols-2 md:gap-5 lg:table-row-group">
         <slot name="body" :items="items">
           <tr v-if="loading">
             <td colspan="100%">
@@ -31,20 +31,23 @@
             v-for="item in items"
             v-else
             :key="item.id || JSON.stringify(item)"
-            class="mb-5 md:mb-0 bg-base-300 bg-opacity-60 hover:bg-opacity-100 border-b last-border-b-0 border-accent-content text-sm font-normal"
+            class="mb-5 md:mb-0 bg-base-100 bg-opacity-60 hover:bg-opacity-100 border-b last-border-b-0 border-accent-content text-sm font-normal  block  lg:table-row relative"
           >
             <td
               v-for="header in headers"
               :key="header.value"
-              class="!whitespace-normal border-b-0 bg-transparent px-3 py-4"
+              class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-between items-center gap-1 text-right lg:text-left lg:table-cell border-b lg:border-b-0 box-content h-5"
             >
-              <slot :name="columnSlotName(header.value)" :item="item">
-                {{ getItemAttr(item, header.value) }}
-              </slot>
+              <span class="inline-block lg:hidden font-bold">{{ header.label }}</span>
+              <div class="break-all lg:break-normal">
+                <slot :name="columnSlotName(header.value)" :item="item">
+                  {{ getItemAttr(item, header.value) }}
+                </slot>
+              </div>
             </td>
-            <td v-if="actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-4">
+            <td v-if="actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-center lg:justify-end items-center gap-1">
               <slot name="actions" :item="item">
-                <div class="flex justify-end gap-2 cursor-pointer">
+                <div class="flex justify-end gap-4 lg:gap-2 cursor-pointer">
                   <div
                     v-for="action in actions"
                     :key="action.label"
@@ -53,7 +56,7 @@
                     :class="actionClasses(action)"
                     @click="action.onClick(item)"
                   >
-                    <Icon class="text-lg" :name="action.icon" :class="actionClasses(action)" />
+                    <Icon class="text-2xl lg:text-lg" :name="action.icon" :class="actionClasses(action)" />
                   </div>
                 </div>
               </slot>
@@ -148,15 +151,15 @@ export default {
     actionClasses(action) {
       switch (action?.type) {
         case 'error':
-          return 'hover:text-error'
+          return 'text-error lg:text-current hover:text-error'
         case 'warning':
-          return 'hover:text-warning'
+          return 'text-warning lg:text-current hover:text-warning'
         case 'success':
-          return 'hover:text-success'
+          return 'text-success lg:text-current hover:text-success'
         case 'info':
-          return 'hover:text-info'
+          return 'text-info lg:text-current hover:text-info'
         case 'primary':
-          return 'hover:text-primary'
+          return 'text-primary lg:text-current hover:text-primary'
         default:
           return ''
       }

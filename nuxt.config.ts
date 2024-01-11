@@ -11,17 +11,17 @@ export default defineNuxtConfig({
     },
   },
 
-  // vite: {
-  //   server: {
-  //     proxy: {
-  //       '/api': {
-  //         target: `${process.env.NUXT_PUBLIC_API_BASE}/api`,
-  //         changeOrigin: true,
-  //         rewrite: (path) => path.replace(/^\/api/, '/'),
-  //       },
-  //     },
-  //   },
-  // },
+  vite: {
+    server: {
+      proxy: {
+        '/api': {
+          target: `${process.env.NUXT_PUBLIC_API_BASE}/api`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '/'),
+        },
+      },
+    },
+  },
 
   // nitro: {
   //   devProxy: {

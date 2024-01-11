@@ -9,7 +9,7 @@ export const apiAxiosInstance = (baseUrl) => {
   }
 
   const instance = axios.create({
-    baseURL: baseUrl,
+    // baseURL: baseUrl,
     withCredentials: true,
     headers: requestHeaders,
   })

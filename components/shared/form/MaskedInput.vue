@@ -6,13 +6,16 @@
       :class="{ 'requiredField': props.required }"
     >{{ props.label }}</span>
     <input
+      v-mask
       :value="props.modelValue"
+      data-maska-eager
       :readonly="props.readonly"
+      :data-maska="props.mask"
       :type="props.type"
       class="input input-bordered w-full focus:outline-none"
       :class="{'input-error': Array.isArray(props.errors) && props.errors.length}"
       :placeholder="props.placeholder"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @maska="onInput"
     >
     <div
       v-if="Array.isArray(props.errors)"
@@ -25,7 +28,8 @@
 </template>
 
 <script setup>
-defineEmits(['update:modelValue'])
+
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   label: {
     type: String,
@@ -61,5 +65,19 @@ const props = defineProps({
     required: false,
     default: '',
   },
+  unmasked: {
+    type: Boolean,
+    default: false,
+  },
+  mask: {
+    type: String,
+    required: true,
+  },
 })
+
+function onInput(event) {
+  props.unmasked
+    ? emit('update:modelValue', _get(event, 'detail.unmasked', ''))
+    : emit('update:modelValue', _get(event, 'detail.masked', ''))
+}
 </script>
