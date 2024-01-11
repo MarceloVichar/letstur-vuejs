@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Montserrat Regular';
+    src: local('Montserrat Bold Italic'), url('../fonts/Montserrat-Regular.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Thin';
+    src: local('Montserrat Thin'), url('../fonts/Montserrat-Thin.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Thin Italic';
+    src: local('Montserrat Thin Italic'), url('../fonts/Montserrat-ThinItalic.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Light';
+    src: local('Montserrat Light'), url('../fonts/Montserrat-Light.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Light Italic';
+    src: local('Montserrat Light Italic'), url('../fonts/Montserrat-LightItalic.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Medium';
+    src: local('Montserrat Medium'), url('../fonts/Montserrat-Medium.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Medium Italic';
+    src: local('Montserrat Medium Italic'), url('../fonts/Montserrat-MediumItalic.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat SemiBold';
+    src: local('Montserrat SemiBold'), url('../fonts/Montserrat-SemiBold.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat SemiBold Italic';
+    src: local('Montserrat SemiBold Italic'), url('../fonts/Montserrat-SemiBoldItalic.ttf');
+}
+
+
+@font-face {
+    font-family: 'Montserrat Bold';
+    src: local('Montserrat Bold'), url('../fonts/Montserrat-Bold.ttf');
+}
+
+

@@ -1,0 +1,68 @@
+@import "fonts.css";
+@import "custom-input.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    html {
+        @apply box-border;
+    }
+
+    body {
+        @apply font-sans h-full tracking-wider antialiased text-base-content bg-base-200;
+    }
+
+    #app, #__nuxt {
+        @apply h-full;
+    }
+
+    #__layout {
+        @apply h-screen;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    .bg-login-background {
+        background-image: url('~/images/loginBackground.jpg');
+    }
+
+    .Vue-Toastification__toast.custom {
+        @apply min-w-0 px-6 py-1 shadow select-none md:rounded text-black;
+    }
+
+    .Vue-Toastification__toast--success.custom {
+        @apply bg-success;
+    }
+
+    .Vue-Toastification__toast--warning.custom {
+        @apply bg-warning;
+    }
+
+    /* etc */
+    .Vue-Toastification__toast--error.custom {
+        @apply bg-error;
+    }
+
+    /* The icon which i'm replacing with a component vue-material-icons (more on how to do this in the docs) */
+    .Vue-Toastification__toast.custom .Vue-Toastification__icon {
+        @apply h-auto;
+    }
+
+    /* The content - use this to override the default font styling etc */
+    .Vue-Toastification__toast-body.custom {
+        @apply self-center text-base font-bold leading-relaxed;
+    }
+
+    .btn-primary {
+        @apply text-base-100;
+    }
+}
+
+html, body, #__nuxt {
+    height: 100%;
+    font-family: "Montserrat Light", sans-serif;
+}
