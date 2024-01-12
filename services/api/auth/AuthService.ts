@@ -18,4 +18,8 @@ export default class AuthService extends BaseService<any> {
   async getProfile(): Promise<RequestType<any>> {
     return this.fetch.get('/api/me')
   }
+
+  async updateProfile(data: any = {}): Promise<RequestType<any>> {
+    return this.fetch.put('/api/me', data)
+  }
 }
