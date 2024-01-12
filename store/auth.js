@@ -41,9 +41,9 @@ export const useAuth = defineStore('auth', {
 
     async login(form) {
       return new AuthService().login(form)
-        .then((response) => {
+        .then(async (response) => {
           console.log(response)
-          this.setToken(_get(response, 'access_token'))
+          await this.setToken(_get(response, 'access_token'))
 
           return response;
         })
