@@ -1,5 +1,5 @@
 import type {CompanyType} from '~/services/api/shared/company/CompanyType';
-import type {UserType} from '~/services/api/shared/Users/UserType';
+import type {UserType} from '~/services/api/shared/users/UserType';
 
 export class UserData {
   id: number;
