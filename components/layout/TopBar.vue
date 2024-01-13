@@ -1,21 +1,18 @@
 <template>
   <div
-    class="px-2 py-1 min-h-min grid grid-cols-3 items-center bg-primary text-base-100"
+    class="px-2 py-1 min-h-min flex justify-between items-center bg-primary text-base-100"
   >
-    <div class="">
-      <LayoutTopbarHamburger
-        class="xl:hidden flex items-center"
-        @openSidebar="emits('openSidebar')"
-      />
-      <Breadcrumb class="hidden xl:block px-2" />
-    </div>
-    <div class="flex justify-center items-center">
+    <LayoutTopbarHamburger
+      class="xl:hidden flex items-center"
+      @openSidebar="emits('openSidebar')"
+    />
+    <NuxtLink to="/" class="flex justify-center items-center">
       <img
         src="/images/light-logo.png"
         alt="logo"
         class="h-8 w-max"
       >
-    </div>
+    </NuxtLink>
     <div class="flex justify-end gap-2">
       <ThemeSelector class="scale-125 mr-1" />
       <div class="flex items-center gap-4">

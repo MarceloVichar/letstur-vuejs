@@ -17,26 +17,32 @@
       {{ useFormattedDateTime(item?.updatedAt) }}
     </template>
     <template #actions="{item}">
-      <TableActionButton
-        icon="ci:search-magnifying-glass"
-        label="Visualizar"
-        type="info"
-        @onClick="emit('view', item)"
-      />
-      <TableActionButton
-        v-if="item?.id !== auth.user?.id"
-        icon="ic:round-mode-edit"
-        label="Editar"
-        type="warning"
-        @onClick="emit('edit', item)"
-      />
-      <TableActionButton
-        v-if="item?.id !== auth.user?.id"
-        icon="ic:round-delete"
-        label="Deletar"
-        type="error"
-        @onClick="emit('delete', item)"
-      />
+      <Can permission="users view">
+        <TableActionButton
+          icon="ci:search-magnifying-glass"
+          label="Visualizar"
+          type="primary"
+          @onClick="emit('view', item)"
+        />
+      </Can>
+      <Can permission="users update">
+        <TableActionButton
+          v-if="item?.id !== auth.user?.id"
+          icon="ic:round-mode-edit"
+          label="Editar"
+          type="warning"
+          @onClick="emit('edit', item)"
+        />
+      </Can>
+      <Can permission="users delete">
+        <TableActionButton
+          v-if="item?.id !== auth.user?.id"
+          icon="ic:round-delete"
+          label="Deletar"
+          type="error"
+          @onClick="emit('delete', item)"
+        />
+      </Can>
     </template>
   </CustomTable>
 </template>
@@ -44,8 +50,9 @@
 <script setup>
 import CustomTable from '~/components/shared/CustomTable.vue';
 import {useFormattedDateTime} from '~/composables/format-field-helpers';
-import {userRoles} from '~/data/objects';
+import {companyUserRoles} from '~/data/objects';
 import TableActionButton from '~/components/shared/TableActionButton.vue';
+import Can from '~/components/shared/Can.vue';
 import {useAuth} from '~/store/auth';
 
 const auth = useAuth()
@@ -53,15 +60,15 @@ const auth = useAuth()
 const headers = [
   {value: 'name', label: 'Nome'},
   {value: 'roles.0', label: 'Função'},
-  {value: 'company.name', label: 'Empresa'},
   {value: 'createdAt', label: 'Cadastrado em'},
+  {value: 'updatedAt', label: 'Atualizado em'},
 ]
 
 defineProps(['data', 'meta', 'pending'])
 const emit = defineEmits(['edit', 'onChangePage', 'delete', 'view'])
 
 const getRoleLabel = (role) => {
-  return userRoles?.find((userRole) => userRole.value === role)?.label || role
+  return companyUserRoles?.find((userRole) => userRole.value === role)?.label || role
 }
 
 </script>
