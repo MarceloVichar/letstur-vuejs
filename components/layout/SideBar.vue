@@ -8,7 +8,7 @@
       :key="index"
     >
       <nuxt-link
-        v-if="!page?.children || page.children?.length"
+        v-if="!page?.children || !page.children?.length"
         :to="page.path"
       >
         <button

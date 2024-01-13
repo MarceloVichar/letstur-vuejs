@@ -13,7 +13,7 @@
             >
               {{ header.label }}
             </th>
-            <th v-if="actions?.length" />
+            <th v-if="typeof actions === 'boolean' ? actions : actions?.length" />
           </tr>
         </slot>
       </thead>
@@ -45,18 +45,22 @@
                 </slot>
               </div>
             </td>
-            <td v-if="actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-center lg:justify-end items-center gap-1">
+            <td v-if="typeof actions === 'boolean' ? actions : actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-center lg:justify-end items-center gap-1">
               <slot name="actions" :item="item">
                 <div class="flex justify-end gap-4 lg:gap-2 cursor-pointer">
                   <div
                     v-for="action in actions"
                     :key="action.label"
-                    class="tooltip tooltip-left"
-                    :data-tip="action?.label"
-                    :class="actionClasses(action)"
-                    @click="action.onClick(item)"
                   >
-                    <Icon class="text-2xl lg:text-lg" :name="action.icon" :class="actionClasses(action)" />
+                    <div
+                      v-if="typeof action.hidden === 'function' ? !action.hidden(item) : !action.hidden"
+                      class="tooltip tooltip-left"
+                      :data-tip="action?.label"
+                      :class="actionClasses(action)"
+                      @click="action.onClick(item)"
+                    >
+                      <Icon class="text-2xl lg:text-lg" :name="action.icon" :class="actionClasses(action)" />
+                    </div>
                   </div>
                 </div>
               </slot>
@@ -105,10 +109,8 @@ export default {
       },
     },
     actions: {
-      type: Array,
-      default() {
-        return []
-      },
+      type: [Array, Boolean],
+      default: false,
     },
     loading: {
       type: Boolean,

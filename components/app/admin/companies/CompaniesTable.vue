@@ -4,7 +4,7 @@
     :items="data"
     :pagination="meta"
     :loading="pending"
-    :actions="actions"
+    actions
     @onChangePage="emit('onChangePage', $event)"
   >
     <template #columnCreatedAt="{item}">
@@ -13,12 +13,33 @@
     <template #columnUpdatedAt="{item}">
       {{ useFormattedDateTime(item?.updatedAt) }}
     </template>
+    <template #actions="{item}">
+      <TableActionButton
+        icon="ci:search-magnifying-glass"
+        label="Visualizar"
+        type="info"
+        @onClick="emit('view', item)"
+      />
+      <TableActionButton
+        icon="ic:round-mode-edit"
+        label="Editar"
+        type="warning"
+        @onClick="emit('edit', item)"
+      />
+      <TableActionButton
+        icon="ic:round-delete"
+        label="Deletar"
+        type="error"
+        @onClick="emit('delete', item)"
+      />
+    </template>
   </CustomTable>
 </template>
 
 <script setup>
 import CustomTable from '~/components/shared/CustomTable.vue';
 import {useFormattedDateTime} from '~/composables/format-field-helpers';
+import TableActionButton from '~/components/shared/TableActionButton.vue';
 
 const headers = [
   {value: 'name', label: 'Nome'},
@@ -29,11 +50,5 @@ const headers = [
 
 defineProps(['data', 'meta', 'pending'])
 const emit = defineEmits(['edit', 'onChangePage', 'delete', 'view'])
-
-const actions = [
-  {value: 'view', label: 'Visualizar', icon: 'ci:search-magnifying-glass', type: 'info', onClick: (item) => emit('view', item)},
-  {value: 'edit', label: 'Editar', icon: 'ic:round-mode-edit', type: 'warning', onClick: (item) => emit('edit', item)},
-  {value: 'delete', label: 'Deletar', icon: 'ic:round-delete', type:'error', onClick: (item) => emit('delete', item)},
-]
 
 </script>

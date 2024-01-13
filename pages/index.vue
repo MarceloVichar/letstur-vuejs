@@ -13,6 +13,6 @@ const auth = useAuth()
 onMounted(() => {
   auth.isAdmin
     ? router.push('/admin/home')
-    : router.push('/client/home')
+    : router.push('/company/home')
 })
 </script>
