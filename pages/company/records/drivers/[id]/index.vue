@@ -35,7 +35,7 @@ import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import {userRoles} from '~/data/objects';
 
 definePageMeta({
-  permission: 'users view',
+  permission: 'drivers view',
 })
 
 const route = useRoute()

@@ -25,7 +25,7 @@ import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import UserForm from '~/components/app/company/users/UserForm.vue';
 
 definePageMeta({
-  permission: 'users update',
+  permission: 'drivers update',
 })
 
 const userService = new UserService()

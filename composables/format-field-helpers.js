@@ -23,3 +23,7 @@ export const useFormattedCnpj = (data) => {
 export const useFormattedPhone = (data) => {
   return data ? data.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3') : ''
 }
+
+export const useFormattedLicensePlate = (data) => {
+  return data && data?.length === 7 ? data.replace(/(\d{3})(\d{4})/, '$1-$2')?.toUpperCase() : data
+}

@@ -52,6 +52,18 @@ defineRule('cnpj', value => {
   return true
 })
 
+defineRule('document', value => {
+  if (!value) {
+    return true;
+  }
+
+  if (!/^\d{11}$|^\d{14}$/.test(value)) {
+    return 'O documento informado é inválido';
+  }
+
+  return true
+})
+
 defineRule('phone', value => {
   if (!value) {
     return true;
@@ -67,6 +79,18 @@ defineRule('phone', value => {
 
   return true;
 });
+
+defineRule('licensePlate', value => {
+  if (!value) {
+    return true;
+  }
+
+  if (!/^[a-zA-Z]{3}\d[a-zA-Z0-9]\d{2}$/.test(value)) {
+    return 'Placa inválida';
+  }
+
+  return true
+})
 
 localize({pt_BR});
 

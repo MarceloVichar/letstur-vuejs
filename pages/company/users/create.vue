@@ -15,11 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import UserService from '~/services/api/company/UserService';
+import UserService from '~/services/api/company/user/UserService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import UserForm from '~/components/app/company/users/UserForm.vue';
 
 const sending = ref(false)
+
+definePageMeta({
+  permission: 'users create',
+})
 
 const form = reactive({
   errors: [],
