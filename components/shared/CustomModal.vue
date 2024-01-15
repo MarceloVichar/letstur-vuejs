@@ -8,7 +8,7 @@
         <div class="relative bg-base-100 opacity-100 bg-opacity-100 shadow p-2 md:pt-2 rounded-xl shadow-xl max-h-[100vh - 10%] w-full md:w-auto md:max-w-[100%] overflow-y-auto" @click.stop>
           <div class="absolute top-1 right-1">
             <button class="btn btn-sm btn-circle btn-ghost" @click="closeModal">
-              <Icon name="ic:round-close" class="text-lg" />
+              x
             </button>
           </div>
           <slot />

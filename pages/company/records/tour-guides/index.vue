@@ -1,25 +1,25 @@
 <template>
   <div class="flex flex-col gap-4">
     <h2 class="font-light text-lg">
-      MOTORISTAS
+      GUIAS DE PASSEIO
     </h2>
     <div class="flex flex-col-reverse md:flex-row gap-2 w-full">
       <SearchInput
         :model-value="getQueryParam('filter[name]', '')"
         class="w-full"
-        placeholder="Pesquisar motorista por nome"
+        placeholder="Pesquisar guia de passeio por nome"
         @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <NuxtLink class="btn btn-primary" to="/company/records/drivers/create">
+      <NuxtLink class="btn btn-primary" to="/company/records/tour-guides/create">
         Cadastrar
       </NuxtLink>
     </div>
-    <DriversTable
+    <TourGuidesTable
       :data="data?.data"
       :meta="data?.meta"
       :pending="pending"
-      @view="navigateTo(`/company/records/drivers/${$event?.id}`)"
-      @edit="navigateTo(`/company/records/drivers/${$event?.id}/edit`)"
+      @view="navigateTo(`/company/records/tour-guides/${$event?.id}`)"
+      @edit="navigateTo(`/company/records/tour-guides/${$event?.id}/edit`)"
       @delete="confirmDelete($event)"
       @onChangePage="setQueryParam('page', $event)"
     />
@@ -29,42 +29,42 @@
 <script setup>
 import SearchInput from '~/components/shared/form/SearchInput.vue';
 import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
-import DriversTable from '~/components/app/company/records/drivers/DriversTable.vue';
-import DriverService from '~/services/api/company/records/driver/DriverService';
+import TourGuidesTable from '~/components/app/company/records/tour-guides/TourGuidesTable.vue';
+import TourGuideService from '~/services/api/company/records/tour-guide/TourGuideService';
 
-const driversService = new DriverService()
+const tourGuidesService = new TourGuideService()
 const route = useRoute()
 
 useHead({
-  title: 'Motoristas',
+  title: 'Guias de passeio',
 })
 
 definePageMeta({
-  permission: 'drivers view any',
+  permission: 'tour-guides view any',
 })
 
-async function fetchDrivers() {
-  return driversService.index({ ...route.query })
+async function fetchTourGuides() {
+  return tourGuidesService.index({ ...route.query })
     .catch(() => {
       useNotify('error', 'Ops! Ocorreu algum erro, tente novamente mais tarde.')
     })
 }
 
-const {pending, data, refresh} = useLazyAsyncData('drivers', await fetchDrivers)
+const {pending, data, refresh} = useLazyAsyncData('tourGuides', await fetchTourGuides)
 
 useRouteQueryWatcher(refresh)
 
 async function confirmDelete(entity) {
   const confirm = await useConfirmation({
-    title: 'Excluir motorista',
-    message: `Deseja realmente excluir o motorista ${entity.name}?`,
+    title: 'Excluir guia de passeio',
+    message: `Deseja realmente excluir o guia de passeio ${entity.name}?`,
   })
 
   if (confirm) {
     try {
-      await driversService.destroy(entity.id)
+      await tourGuidesService.destroy(entity.id)
       refresh()
-      useNotify('success', 'Motorista excluído com sucesso.')
+      useNotify('success', 'Guia de passeio excluído com sucesso.')
     } catch (error) {
       useNotify('error', 'Ops! Ocorreu algum erro, tente novamente mais tarde.')
     }
