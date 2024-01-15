@@ -15,6 +15,12 @@
         :data="data"
         :headers="headers"
       >
+        <template #columnDocument="{item}">
+          {{ useFormattedDocument(item?.document) }}
+        </template>
+        <template #columnPhone="{item}">
+          {{ useFormattedPhone(item?.phone) }}
+        </template>
         <template #columnDateOfBirth>
           {{ useFormattedDate(data?.dateOfBirth) }}
         </template>

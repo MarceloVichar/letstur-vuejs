@@ -7,7 +7,7 @@
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl mb-4">
-        Detalhes do guia de passeio
+        Detalhes do veículo
       </h2>
       <DataList
         :pending="pending"
@@ -15,11 +15,17 @@
         :data="data"
         :headers="headers"
       >
-        <template #columnDocument="{item}">
-          {{ useFormattedDocument(item?.document) }}
+        <template #columnOwnerDocument="{item}">
+          {{ useFormattedDocument(item?.ownerDocument) }}
         </template>
-        <template #columnPhone="{item}">
-          {{ useFormattedPhone(item?.phone) }}
+        <template #columnOwnerPhone="{item}">
+          {{ useFormattedPhone(item?.ownerPhone) }}
+        </template>
+        <template #columnType="{item}">
+          {{ getVehicleTypeLabel(item?.type) }}
+        </template>
+        <template #columnLicensePlate="{item}">
+          {{ useFormattedLicensePlate(item?.licensePlate) }}
         </template>
         <template #columnCreatedAt>
           {{ useFormattedDateTime(data?.createdAt) }}
@@ -33,19 +39,20 @@
 </template>
 <script setup>
 import DataList from '~/components/shared/DataList.vue';
-import TourGuideService from '~/services/api/company/records/tour-guide/TourGuideService';
+import VehicleService from '~/services/api/company/records/vehicle/VehicleService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import {useFormattedDateTime} from '~/composables/format-field-helpers';
+import {vehicleTypes} from '~/data/objects';
 
 definePageMeta({
-  permission: 'tour-guides view',
+  permission: 'vehicles view',
 })
 
 const route = useRoute()
 const router = useRouter()
 
 async function fetchData() {
-  return await (new TourGuideService()).get(route.params?.id)
+  return await (new VehicleService()).get(route.params?.id)
     .then((response) => {
       return response?.item
     })
@@ -59,11 +66,19 @@ const {pending, data} = useAsyncData(await fetchData)
 
 const headers = [
   {value: 'id', label: 'ID'},
-  {value: 'name', label: 'Nome'},
-  {value: 'document', label: 'Documento'},
-  {value: 'email', label: 'Email'},
-  {value: 'phone', label: 'Telefone'},
+  {value: 'model', label: 'Modelo'},
+  {value: 'type', label: 'Tipo'},
+  {value: 'licensePlate', label: 'Placa'},
+  {value: 'numberOfSeats', label: 'Número de assentos'},
+  {value: 'ownerName', label: 'Nome do proprietário'},
+  {value: 'ownerDocument', label: 'Documento do proprietário'},
+  {value: 'ownerEmail', label: 'Email do proprietário'},
+  {value: 'ownerPhone', label: 'Telefone do proprietário'},
   {value: 'createdAt', label: 'Criado em'},
   {value: 'updatedAt', label: 'Atualizado em'},
 ]
+
+const getVehicleTypeLabel = (currentVehicleType) => {
+  return vehicleTypes.find((vehicleType) => vehicleType.value === currentVehicleType)?.label || currentVehicleType
+}
 </script>
