@@ -165,7 +165,6 @@ watch(() => mutableForm?.data?.role, (newValue) => {
   if (newValue === UserRolesEnum.ADMIN) {
     mutableForm.data.companyId = ''
   }
-  console.log(mutableForm.data)
 })
 
 onMounted(() => {
@@ -176,7 +175,6 @@ function getCompanies() {
   return new CompanyService().index({ perPage: 100})
     .then((response) => {
       companies.value = response.data
-      console.log(response.data)
     })
     .catch(() => {
       useNotify('error', 'Não foi possível carregas as empresas')

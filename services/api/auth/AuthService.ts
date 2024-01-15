@@ -7,7 +7,6 @@ export default class AuthService extends BaseService<any> {
   }
 
   async login(data: any = {}): Promise<RequestType<any>> {
-    console.log('aqui')
     return await this.fetch.post('/api/login', data)
   }
 

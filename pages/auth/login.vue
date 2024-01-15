@@ -68,7 +68,6 @@ const form = reactive({
 
 async function onSubmit() {
   isSending.value = true
-  console.log('entrou')
   await authStore.login(form.data)
     .then(() => {
       navigateTo('/')

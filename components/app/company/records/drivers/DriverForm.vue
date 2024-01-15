@@ -104,19 +104,19 @@
         />
       </VeeField>
       <VeeField
-        v-slot="{ errors }"
-        v-model="mutableForm.data.secondaryPhone"
-        name="secondaryPhone"
-        rules="phone"
+        v-slot="{ field, errors }"
+        v-model="mutableForm.data.dateOfBirth"
+        name="dateOfBirth"
+        rules="required"
       >
-        <MaskedInput
-          v-model="mutableForm.data.secondaryPhone"
-          unmasked
-          mask="(##) #####-####"
-          type="text"
-          placeholder="Telefone 2"
-          label="Telefone 2"
-          :errors="useErrorBag(errors, mutableForm.errors, 'secondaryPhone')"
+        <CustomDatePicker
+          v-bind="field"
+          v-model="field.value"
+          required
+          :max-date="maxDate"
+          placeholder="Data de nascimento"
+          label="Data de nascimento"
+          :errors="useErrorBag(errors, mutableForm.errors, 'dateOfBirth')"
         />
       </VeeField>
     </div>
@@ -139,11 +139,10 @@
 <script setup>
 import CustomInput from '~/components/shared/form/CustomInput.vue';
 import SubmitButton from '~/components/shared/form/SubmitButton.vue';
-import CustomPassInput from '~/components/shared/form/CustomPassInput.vue';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
-import {companyUserRoles} from '~/data/objects';
 import MaskedInput from '~/components/shared/form/MaskedInput.vue';
 import {CnhTypesEnum} from '~/enums/CnhTypesEnum';
+import CustomDatePicker from '~/components/shared/form/CustomDatePicker.vue';
 
 const props = defineProps({
   modelValue: {
@@ -174,6 +173,8 @@ watch(
 )
 
 const cnhTypesArray = Object.values(CnhTypesEnum)
+
+const maxDate = useDayjs()().subtract(18, 'year').format('YYYY-MM-DD')
 
 const onSubmit = () => {
   if (props.sending) return

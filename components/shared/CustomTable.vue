@@ -147,7 +147,6 @@ export default {
       return 'column' + _upperFirst(_camelCase(headerValue))
     },
     changePage(page) {
-      console.log('dispatching changePage', page )
       this.$emit('onChangePage', page)
     },
     actionClasses(action) {

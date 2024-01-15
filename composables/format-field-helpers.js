@@ -1,6 +1,11 @@
 export const useFormattedDateTime = (date) => {
   return date ? useDayjs()(date).format('DD/MM/YYYY HH:mm') :  ''
 }
+
+export const useFormattedDate = (date) => {
+  return date ? useDayjs()(date).format('DD/MM/YYYY') :  ''
+}
+
 export const useFormattedDocument = (data) => {
   switch (data?.length) {
     case 11:

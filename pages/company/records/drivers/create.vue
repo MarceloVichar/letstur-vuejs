@@ -14,49 +14,6 @@
   </div>
 </template>
 
-<!--<script setup>-->
-<!--import DriverService from '~/services/api/company/records/DriverService';-->
-<!--import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';-->
-<!--import DriverForm from '~/components/app/company/records/drivers/DriverForm.vue';-->
-
-<!--// definePageMeta({-->
-<!--//   permission: 'drivers create',-->
-<!--// })-->
-
-<!--// const sending = ref(false)-->
-<!--//-->
-<!--// const form = reactive({-->
-<!--//   errors: [],-->
-<!--//   data: {-->
-<!--//     name: undefined,-->
-<!--//     cnh: undefined,-->
-<!--//     cnhType: undefined,-->
-<!--//     document: undefined,-->
-<!--//     email: undefined,-->
-<!--//     phone: undefined,-->
-<!--//     dateOfBirth: undefined,-->
-<!--//   },-->
-<!--// })-->
-<!--//-->
-<!--// async function create() {-->
-<!--//   sending.value = true-->
-<!--//   await (new DriverService()).create(form.data)-->
-<!--//     .then(() => {-->
-<!--//       useNotify('success', 'Motorista cadastrado com sucesso.')-->
-<!--//       navigateTo('/company/records/drivers')-->
-<!--//     })-->
-<!--//     .catch((error) => {-->
-<!--//       if (error?.response?.status === 422) {-->
-<!--//         form.errors = error?.response?.data?.errors-->
-<!--//         useNotify('error', 'Preencha os campos corretamente.')-->
-<!--//       } else {-->
-<!--//         useNotify('error', 'Ops! Ocorreu algum erro, tente novamente mais tarde.')-->
-<!--//       }-->
-<!--//     })-->
-<!--//     .finally(() => {sending.value = false})-->
-<!--// }-->
-
-<!--</script>-->
 <script setup>
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import DriverForm from '~/components/app/company/records/drivers/DriverForm.vue';
@@ -71,19 +28,23 @@ const sending = ref(false)
 const form = reactive({
   errors: [],
   data: {
-    name: undefined,
-    cnh: undefined,
-    cnhType: undefined,
-    document: undefined,
-    email: undefined,
-    phone: undefined,
-    dateOfBirth: undefined,
+    name: '',
+    cnh: '',
+    cnhType: '',
+    document: '',
+    email: '',
+    phone: '',
+    dateOfBirth: '',
   },
 })
 
 async function create() {
   sending.value = true
-  await (new DriverService()).create(form.data)
+  const params = {
+    ...form.data,
+    dateOfBirth: useDayjs()(form.data.dateOfBirth).format('YYYY-MM-DD'),
+  }
+  await (new DriverService()).create(params)
     .then(() => {
       useNotify('success', 'Motorista cadastrado com sucesso.')
       navigateTo('/company/records/drivers')
