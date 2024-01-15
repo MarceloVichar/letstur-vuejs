@@ -93,19 +93,19 @@ const menuItems: MenuItems = {
       icon: 'ic:baseline-house',
       children: [
         {
-          path: '/company/vehicles',
+          path: '/company/records/vehicles',
           label: 'Veículos',
           icon: 'ic:baseline-house',
           permission: 'vehicles view any',
         },
         {
-          path: '/company/drivers',
+          path: '/company/records/drivers',
           label: 'Motoristas',
           icon: 'ic:baseline-house',
           permission: 'drivers view any',
         },
         {
-          path: '/company/tour-guides',
+          path: '/company/records/tour-guides',
           label: 'Guias de passeio',
           icon: 'ic:baseline-house',
           permission: 'tour-guides view any',

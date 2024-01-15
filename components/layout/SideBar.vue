@@ -84,8 +84,6 @@ const getAccessibleRoutes = (menuItems) => {
       childrenHavePermission = item.children.length > 0;
     }
 
-    console.log(item.label, hasRequiredPermission, hasRequiredRole, childrenHavePermission)
-
     return hasRequiredRole && hasRequiredPermission && childrenHavePermission;
   });
 }

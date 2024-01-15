@@ -34,9 +34,6 @@ export default {
       default: false,
     },
   },
-  created() {
-    console.log(this.data)
-  },
   methods: {
     getItemAttr (attr) {
       return _get(this.data, attr, '')

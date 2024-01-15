@@ -19,6 +19,57 @@
     <div class="grid md:grid-cols-2 gap-3">
       <VeeField
         v-slot="{ field, errors }"
+        v-model="mutableForm.data.cnh"
+        name="cnh"
+        rules="required|min:2"
+      >
+        <CustomInput
+          v-bind="field"
+          v-model="field.value"
+          required
+          type="text"
+          placeholder="Cnh"
+          label="Cnh"
+          :errors="useErrorBag(errors, mutableForm.errors, 'cnh')"
+        />
+      </VeeField>
+      <VeeField
+        v-slot="{ field, errors }"
+        v-model="mutableForm.data.cnhType"
+        name="cnhType"
+        rules="required"
+      >
+        <CustomSelect
+          v-bind="field"
+          v-model="field.value"
+          required
+          label="Tipo de CNH"
+          hide-all-option
+          :items="cnhTypesArray"
+          :errors="useErrorBag(errors, mutableForm.errors, 'cnhType')"
+        />
+      </VeeField>
+    </div>
+    <div class="grid md:grid-cols-2 gap-3">
+      <VeeField
+        v-slot="{ errors }"
+        v-model="mutableForm.data.document"
+        name="document"
+        rules="required|document"
+      >
+        <MaskedInput
+          v-model="mutableForm.data.document"
+          unmasked
+          required
+          mask="['##.###.###/####-##', '###.###.###-##']"
+          type="text"
+          placeholder="Documento"
+          label="Documento"
+          :errors="useErrorBag(errors, mutableForm.errors, 'document')"
+        />
+      </VeeField>
+      <VeeField
+        v-slot="{ field, errors }"
         v-model="mutableForm.data.email"
         name="email"
         rules="required|email"
@@ -33,77 +84,39 @@
           :errors="useErrorBag(errors, mutableForm.errors, 'email')"
         />
       </VeeField>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-3">
+      <VeeField
+        v-slot="{ errors }"
+        v-model="mutableForm.data.phone"
+        name="phone"
+        rules="required|phone"
+      >
+        <MaskedInput
+          v-model="mutableForm.data.phone"
+          unmasked
+          required
+          mask="['(##) #####-####', '(##) ####-####']"
+          type="text"
+          placeholder="Telefone"
+          label="Telefone"
+          :errors="useErrorBag(errors, mutableForm.errors, 'phone')"
+        />
+      </VeeField>
       <VeeField
         v-slot="{ field, errors }"
-        v-model="mutableForm.data.role"
-        name="role"
+        v-model="mutableForm.data.dateOfBirth"
+        name="dateOfBirth"
         rules="required"
       >
-        <CustomSelect
+        <CustomDatePicker
           v-bind="field"
           v-model="field.value"
           required
-          type="email"
-          label="Função"
-          hide-all-option
-          :items="userRoles"
-          label-field="label"
-          value-field="value"
-          index-field="value"
-          :errors="useErrorBag(errors, mutableForm.errors, 'email')"
-        />
-      </VeeField>
-    </div>
-    <VeeField
-      v-if="mutableForm.data?.role && mutableForm.data.role !== UserRolesEnum.ADMIN"
-      v-slot="{ field, errors }"
-      v-model="mutableForm.data.companyId"
-      name="companyId"
-      rules="required"
-    >
-      <CustomSelect
-        v-bind="field"
-        v-model="field.value"
-        required
-        type="email"
-        label="Empresa"
-        :items="companies"
-        hide-all-option
-        label-field="name"
-        value-field="id"
-        index-field="id"
-        :errors="useErrorBag(errors, mutableForm.errors, 'companyId')"
-      />
-    </VeeField>
-    <div v-if="action === 'create'" class="grid md:grid-cols-2 gap-3">
-      <VeeField
-        v-slot="{ field, errors }"
-        v-model="mutableForm.data.password"
-        name="password"
-        rules="required|min:8"
-      >
-        <CustomPassInput
-          v-bind="field"
-          v-model="field.value"
-          required
-          placeholder="Senha"
-          label="Senha"
-          :errors="useErrorBag(errors, mutableForm.errors, 'password')"
-        />
-      </VeeField>
-      <VeeField
-        v-slot="{ field, errors }"
-        v-model="mutableForm.data.password_confirmation"
-        name="password_confirmation"
-        rules="required|confirmed:@password"
-      >
-        <CustomPassInput
-          v-bind="field"
-          v-model="field.value"
-          required
-          placeholder="Confirme a senha"
-          label="Confirme a senha"
-          :errors="useErrorBag(errors, mutableForm.errors, 'password_confirmation')"
+          :max-date="maxDate"
+          placeholder="Data de nascimento"
+          label="Data de nascimento"
+          :errors="useErrorBag(errors, mutableForm.errors, 'dateOfBirth')"
         />
       </VeeField>
     </div>
@@ -126,11 +139,10 @@
 <script setup>
 import CustomInput from '~/components/shared/form/CustomInput.vue';
 import SubmitButton from '~/components/shared/form/SubmitButton.vue';
-import CustomPassInput from '~/components/shared/form/CustomPassInput.vue';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
-import {userRoles} from '~/data/objects';
-import CompanyService from '~/services/api/admin/CompanyService';
-import {UserRolesEnum} from '~/enums/UserRolesEnum';
+import MaskedInput from '~/components/shared/form/MaskedInput.vue';
+import {CnhTypesEnum} from '~/enums/CnhTypesEnum';
+import CustomDatePicker from '~/components/shared/form/CustomDatePicker.vue';
 
 const props = defineProps({
   modelValue: {
@@ -151,7 +163,6 @@ const emit = defineEmits(['submit', 'update:modelValue'])
 
 const form = _cloneDeep(props.modelValue)
 const mutableForm = reactive(form)
-const companies = ref([])
 
 watch(
   () => props.modelValue,
@@ -161,25 +172,9 @@ watch(
   { immediate: true, deep: true },
 )
 
-watch(() => mutableForm?.data?.role, (newValue) => {
-  if (newValue === UserRolesEnum.ADMIN) {
-    mutableForm.data.companyId = ''
-  }
-})
+const cnhTypesArray = Object.values(CnhTypesEnum)
 
-onMounted(() => {
-  getCompanies()
-})
-
-function getCompanies() {
-  return new CompanyService().index({ perPage: 100})
-    .then((response) => {
-      companies.value = response.data
-    })
-    .catch(() => {
-      useNotify('error', 'Não foi possível carregas as empresas')
-    })
-}
+const maxDate = useDayjs()().subtract(18, 'year').format('YYYY-MM-DD')
 
 const onSubmit = () => {
   if (props.sending) return

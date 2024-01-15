@@ -7,7 +7,7 @@
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl mb-4">
-        Detalhes do usuário
+        Detalhes do motorista
       </h2>
       <DataList
         :pending="pending"
@@ -15,8 +15,8 @@
         :data="data"
         :headers="headers"
       >
-        <template #columnRoles0>
-          {{ getRoleLabel(data?.roles[0]) }}
+        <template #columnDateOfBirth>
+          {{ useFormattedDate(data?.dateOfBirth) }}
         </template>
         <template #columnCreatedAt>
           {{ useFormattedDateTime(data?.createdAt) }}
@@ -30,19 +30,19 @@
 </template>
 <script setup>
 import DataList from '~/components/shared/DataList.vue';
-import UserService from '~/services/api/company/user/UserService';
+import DriverService from '~/services/api/company/records/driver/DriverService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
-import {userRoles} from '~/data/objects';
+import {useFormattedDate, useFormattedDateTime} from '~/composables/format-field-helpers';
 
 definePageMeta({
-  permission: 'users view',
+  permission: 'drivers view',
 })
 
 const route = useRoute()
 const router = useRouter()
 
 async function fetchData() {
-  return await (new UserService()).get(route.params?.id)
+  return await (new DriverService()).get(route.params?.id)
     .then((response) => {
       return response?.item
     })
@@ -55,14 +55,15 @@ async function fetchData() {
 const {pending, data} = useAsyncData(await fetchData)
 
 const headers = [
+  {value: 'id', label: 'ID'},
   {value: 'name', label: 'Nome'},
+  {value: 'cnh', label: 'CNH'},
+  {value: 'cnhType', label: 'Tipo da CNH'},
+  {value: 'document', label: 'Documento'},
   {value: 'email', label: 'Email'},
-  {value: 'roles.0', label: 'Função'},
+  {value: 'phone', label: 'Telefone'},
+  {value: 'dateOfBirth', label: 'Data de nascimento'},
   {value: 'createdAt', label: 'Criado em'},
   {value: 'updatedAt', label: 'Atualizado em'},
 ]
-
-const getRoleLabel = (role) => {
-  return userRoles?.find((userRole) => userRole.value === role)?.label || role
-}
 </script>

@@ -7,44 +7,47 @@
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
-        Cadastrar usuário
+        Cadastrar motorista
       </h2>
-      <UserForm :model-value="form" :sending="sending" @submit="create()" />
+      <DriverForm :model-value="form" :sending="sending" @submit="create()" />
     </CentralizedContainer>
   </div>
 </template>
 
-<script setup lang="ts">
-import UserService from '~/services/api/company/user/UserService';
+<script setup>
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
-import UserForm from '~/components/app/company/users/UserForm.vue';
-
-const sending = ref(false)
+import DriverForm from '~/components/app/company/records/drivers/DriverForm.vue';
+import DriverService from '~/services/api/company/records/driver/DriverService';
 
 definePageMeta({
-  permission: 'users create',
+  permission: 'drivers create',
 })
+
+const sending = ref(false)
 
 const form = reactive({
   errors: [],
   data: {
-    name: undefined,
-    password: undefined,
-    password_confirmation: undefined,
-    email: undefined,
-    role: undefined,
+    name: '',
+    cnh: '',
+    cnhType: '',
+    document: '',
+    email: '',
+    phone: '',
+    dateOfBirth: '',
   },
 })
 
 async function create() {
   sending.value = true
-  await (new UserService()).create({
+  const params = {
     ...form.data,
-    roles: [form.data.role],
-  })
+    dateOfBirth: useDayjs()(form.data.dateOfBirth).format('YYYY-MM-DD'),
+  }
+  await (new DriverService()).create(params)
     .then(() => {
-      useNotify('success', 'Usuário cadastrado com sucesso.')
-      navigateTo('/company/users')
+      useNotify('success', 'Motorista cadastrado com sucesso.')
+      navigateTo('/company/records/drivers')
     })
     .catch((error) => {
       if (error?.response?.status === 422) {
@@ -56,5 +59,4 @@ async function create() {
     })
     .finally(() => {sending.value = false})
 }
-
 </script>

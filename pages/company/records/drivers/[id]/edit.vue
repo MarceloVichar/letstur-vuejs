@@ -7,9 +7,9 @@
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
-        Editar usuário
+        Editar motorista
       </h2>
-      <UserForm
+      <DriverForm
         v-if="!pending"
         :model-value="form"
         :sending="sending"
@@ -20,15 +20,15 @@
   </div>
 </template>
 <script setup>
-import UserService from '~/services/api/company/user/UserService';
+import DriverService from '~/services/api/company/records/driver/DriverService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
-import UserForm from '~/components/app/company/users/UserForm.vue';
+import DriverForm from '~/components/app/company/records/drivers/DriverForm.vue';
 
 definePageMeta({
-  permission: 'users update',
+  permission: 'drivers update',
 })
 
-const userService = new UserService()
+const driverService = new DriverService()
 const route = useRoute()
 const router = useRouter()
 
@@ -37,17 +37,18 @@ const sending = ref(false)
 const form = reactive({
   errors: [],
   data: {
-    name: undefined,
-    password: undefined,
-    password_confirmation: undefined,
-    email: undefined,
-    role: undefined,
-    companyId: undefined,
+    name: '',
+    cnh: '',
+    cnhType: '',
+    document: '',
+    email: '',
+    phone: '',
+    dateOfBirth: '',
   },
 })
 
 async function fetchData() {
-  return await userService.get(route.params?.id)
+  return await driverService.get(route.params?.id)
     .then((response) => {
       syncData(response?.item)
       return response?.item
@@ -63,19 +64,19 @@ const {pending} = await  useAsyncData(fetchData)
 function syncData(loadedData) {
   Object.keys(form.data).forEach((key) => {
     if (loadedData[key]) form.data[key] = loadedData[key]
-    if (loadedData?.roles && loadedData?.roles[0]) form.data.role = loadedData?.roles[0]
   })
 }
 
 async function edit() {
   sending.value = true
-  await  userService.update(route.params?.id, {
+  const params = {
     ...form.data,
-    roles: [form.data.role],
-  })
+    dateOfBirth: useDayjs()(form.data.dateOfBirth).format('YYYY-MM-DD'),
+  }
+  await  driverService.update(route.params?.id, params)
     .then(() => {
-      useNotify('success', 'Usuário editado com sucesso.')
-      navigateTo('/company/users')
+      useNotify('success', 'Motorista editado com sucesso.')
+      navigateTo('/company/records/drivers')
     })
     .catch((error) => {
       if (error?.response?.status === 422) {
