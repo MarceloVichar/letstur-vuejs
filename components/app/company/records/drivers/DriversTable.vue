@@ -24,7 +24,6 @@
       </Can>
       <Can permission="drivers update">
         <TableActionButton
-          v-if="item?.id !== auth.user?.id"
           icon="ic:round-mode-edit"
           label="Editar"
           type="warning"
@@ -33,7 +32,6 @@
       </Can>
       <Can permission="drivers delete">
         <TableActionButton
-          v-if="item?.id !== auth.user?.id"
           icon="ic:round-delete"
           label="Deletar"
           type="error"

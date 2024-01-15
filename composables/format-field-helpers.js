@@ -26,9 +26,15 @@ export const useFormattedCnpj = (data) => {
 }
 
 export const useFormattedPhone = (data) => {
-  return data ? data.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3') : ''
+  if (data?.length === 10) {
+    return data.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  } else if (data?.length === 11) {
+    return data.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  }
+  return data;
 }
 
 export const useFormattedLicensePlate = (data) => {
-  return data && data?.length === 7 ? data.replace(/(\d{3})(\d{4})/, '$1-$2')?.toUpperCase() : data
+  return data && data?.length === 7 ? data.replace(/([A-Za-z]{3})([A-Za-z0-9])(\d{3})/, '$1-$2$3')?.toUpperCase() : data
+
 }
