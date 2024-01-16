@@ -31,6 +31,7 @@
     "@vee-validate/i18n": "^4.12.3",
     "@vee-validate/rules": "^4.12.3",
     "axios": "^1.6.2",
+    "cep-promise": "^4.4.0",
     "daisyui": "^4.4.20",
     "maska": "^2.1.11",
     "pinia": "^2.1.7",

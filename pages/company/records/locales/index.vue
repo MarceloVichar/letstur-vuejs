@@ -1,25 +1,25 @@
 <template>
   <div class="flex flex-col gap-4">
     <h2 class="font-light text-lg">
-      Veículos
+      Locais
     </h2>
     <div class="flex flex-col-reverse md:flex-row gap-2 w-full">
       <SearchInput
-        :model-value="getQueryParam('filter[model]', '')"
+        :model-value="getQueryParam('filter[name]', '')"
         class="w-full"
-        placeholder="Pesquisar veículo por modelo"
-        @update:modelValue="setQueryParam('filter[model]', $event)"
+        placeholder="Pesquisar local por nome"
+        @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <NuxtLink class="btn btn-primary" to="/company/records/vehicles/create">
+      <NuxtLink class="btn btn-primary" to="/company/records/locales/create">
         Cadastrar
       </NuxtLink>
     </div>
-    <VehiclesTable
+    <LocalesTable
       :data="data?.data"
       :meta="data?.meta"
       :pending="pending"
-      @view="navigateTo(`/company/records/vehicles/${$event?.id}`)"
-      @edit="navigateTo(`/company/records/vehicles/${$event?.id}/edit`)"
+      @view="navigateTo(`/company/records/locales/${$event?.id}`)"
+      @edit="navigateTo(`/company/records/locales/${$event?.id}/edit`)"
       @delete="confirmDelete($event)"
       @onChangePage="setQueryParam('page', $event)"
     />
@@ -29,42 +29,42 @@
 <script setup>
 import SearchInput from '~/components/shared/form/SearchInput.vue';
 import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
-import VehiclesTable from '~/components/app/company/records/vehicles/VehiclesTable.vue';
-import VehicleService from '~/services/api/company/records/vehicle/VehicleService';
+import LocalesTable from '~/components/app/company/records/locales/LocalesTable.vue';
+import LocaleService from '~/services/api/company/records/locale/LocaleService';
 
-const vehiclesService = new VehicleService()
+const localesService = new LocaleService()
 const route = useRoute()
 
 useHead({
-  title: 'Veículos',
+  title: 'Locais',
 })
 
 definePageMeta({
-  permission: 'vehicles view any',
+  permission: 'locales view any',
 })
 
-async function fetchVehicles() {
-  return vehiclesService.index({ ...route.query })
+async function fetchLocales() {
+  return localesService.index({ ...route.query })
     .catch(() => {
       useNotify('error', 'Ops! Ocorreu algum erro, tente novamente mais tarde.')
     })
 }
 
-const {pending, data, refresh} = useLazyAsyncData('vehicles', await fetchVehicles)
+const {pending, data, refresh} = useLazyAsyncData('locales', await fetchLocales)
 
 useRouteQueryWatcher(refresh)
 
 async function confirmDelete(entity) {
   const confirm = await useConfirmation({
-    title: 'Excluir veículo',
-    message: `Deseja realmente excluir o veículo ${entity.model}?`,
+    title: 'Excluir local',
+    message: `Deseja realmente excluir o local ${entity.name}?`,
   })
 
   if (confirm) {
     try {
-      await vehiclesService.destroy(entity.id)
+      await localesService.destroy(entity.id)
       refresh()
-      useNotify('success', 'Veículo excluído com sucesso.')
+      useNotify('success', 'Local excluído com sucesso.')
     } catch (error) {
       useNotify('error', 'Ops! Ocorreu algum erro, tente novamente mais tarde.')
     }
