@@ -5,6 +5,7 @@ export const useLayout = defineStore('layout', {
   state: () => {
     return {
       theme: useStorage('nuxt-color-mode', 'lightTheme'),
+      sidebarIsOpen: false,
     }
   },
 
@@ -17,6 +18,15 @@ export const useLayout = defineStore('layout', {
   actions: {
     setTheme(theme) {
       this.theme = theme
+    },
+    toggleSidebar() {
+      this.sidebarIsOpen = !this.sidebarIsOpen
+    },
+    openSidebar() {
+      this.sidebarIsOpen = true
+    },
+    closeSidebar() {
+      this.sidebarIsOpen = false
     },
   },
 })
