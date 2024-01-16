@@ -61,7 +61,7 @@ const authStore = useAuth()
 const form = reactive({
   errors: [],
   data: {
-    email: 'admin@letsgrow.com.br',
+    email: 'company_admin@letsgrow.com.br',
     password: '12345678',
   },
 })
