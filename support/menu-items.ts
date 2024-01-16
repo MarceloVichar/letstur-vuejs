@@ -68,19 +68,19 @@ const menuItems: MenuItems = {
       icon: 'ic:baseline-house',
       children: [
         {
-          path: '/company/tours',
+          path: '/company/records/tours',
           label: 'Ver passeios',
           icon: 'ic:baseline-house',
           permission: 'tours view any',
         },
         {
-          path: '/company/tour-types',
+          path: '/company/records/tour-types',
           label: 'Tipos de passeios',
           icon: 'ic:baseline-house',
           permission: 'tour-types view any',
         },
         {
-          path: '/company/locales',
+          path: '/company/records/locales',
           label: 'Locais',
           icon: 'ic:baseline-house',
           permission: 'locales view any',

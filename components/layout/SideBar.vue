@@ -35,10 +35,12 @@
 import menuItems from '~/support/menu-items';
 import DropDown from '~/components/layout/sidebar/Dropdown.vue';
 import {useAuth} from '~/store/auth';
+import {useLayout} from '~/store/layout';
 
 const visibleMenu = ref('')
 
 const route = reactive(useRoute())
+const layout = useLayout()
 
 const availablePages = computed(() => {
   const pages = useAuth()?.isAdmin ? menuItems['admin'] : menuItems['company']
@@ -48,6 +50,12 @@ const availablePages = computed(() => {
 function activeLink(path) {
   return (typeof route.path === 'string') ? route.path.includes(path) : false
 }
+
+watch(() => route.path, () => {
+  if (layout.sidebarIsOpen) {
+    layout.closeSidebar()
+  }
+})
 
 onMounted(() => {
   const currentRoute = availablePages.value.find(page => {
