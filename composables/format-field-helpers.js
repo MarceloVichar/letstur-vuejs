@@ -36,5 +36,12 @@ export const useFormattedPhone = (data) => {
 
 export const useFormattedLicensePlate = (data) => {
   return data && data?.length === 7 ? data.replace(/([A-Za-z]{3})([A-Za-z0-9])(\d{3})/, '$1-$2$3')?.toUpperCase() : data
+}
 
+export const useFormattedRealMoney = (value, cents = true) => {
+  if (typeof value !== 'number') {
+    return value;
+  }
+  const realValue = cents ? value / 100 : value;
+  return realValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
