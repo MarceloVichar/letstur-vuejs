@@ -103,7 +103,7 @@ function onChange(value) {
 }
 
 .vs__selected-options {
-  @apply p-0;
+  @apply p-0 overflow-hidden;
 }
 
 .vs__selected {
@@ -111,7 +111,7 @@ function onChange(value) {
 }
 
 .vs__dropdown-menu {
-  @apply bg-base-100 absolute top-14;
+  @apply bg-base-100 absolute top-14 overflow-x-hidden;
 }
 
 .vs__search::placeholder {

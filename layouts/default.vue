@@ -1,8 +1,8 @@
 <template>
   <div class="bg-base-200 min-h-screen">
-    <TopBar class="fixed w-full top-0 z-50" />
+    <TopBar class="fixed w-full top-0 z-[15]" />
     <div
-      class="sidebarContainer absolute xl:fixed left-0 top-0 h-screen bg-base-100 pt-12 flex flex-col z-20 overflow-x-hidden"
+      class="sidebarContainer absolute xl:fixed left-0 top-0 h-screen bg-base-100 pt-12 flex flex-col z-10 overflow-x-hidden"
       :class="{ 'w-0 xl:w-64': !layout.sidebarIsOpen, 'w-full sm:w-64': layout.sidebarIsOpen }"
     >
       <SideBar />
@@ -11,7 +11,7 @@
       <transition name="fade">
         <div
           v-if="layout.sidebarIsOpen"
-          class="xl:hidden absolute h-screen w-full top-0 left-0 bg-black bg-opacity-20 z-10 duration-200"
+          class="xl:hidden absolute h-screen w-full top-0 left-0 bg-black bg-opacity-20 z-[5] duration-200"
           @click="layout.closeSidebar()"
         />
       </transition>

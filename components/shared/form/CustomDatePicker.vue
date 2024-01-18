@@ -87,7 +87,7 @@ const mutableModel = ref(props.modelValue)
 
 watch(
   () => mutableModel.value,
-  (newValue) => {
+  () => {
     updateValue()
   })
 
@@ -100,3 +100,9 @@ const updateValue = () => {
   }
 }
 </script>
+
+<style>
+.vc-popover-content-wrapper {
+  z-index: 30;
+}
+</style>
