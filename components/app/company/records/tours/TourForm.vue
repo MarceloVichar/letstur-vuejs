@@ -1,5 +1,5 @@
 <template>
-  <VeeForm v-slot="{ meta, errors }" class="grid p-1 gap-1 w-full" @submit="onSubmit">
+  <VeeForm v-slot="{ meta }" class="grid p-1 gap-1 w-full" @submit="onSubmit">
     <VeeField
       v-slot="{ field, errors }"
       v-model="mutableForm.data.name"
