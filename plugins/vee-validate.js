@@ -1,5 +1,5 @@
 import {defineRule, configure, Form, Field} from 'vee-validate';
-import {required, email, min, max, confirmed, min_value, max_value} from '@vee-validate/rules';
+import {required, email, min, max, confirmed, min_value, max_value, integer} from '@vee-validate/rules';
 import {localize, setLocale} from '@vee-validate/i18n'
 import pt_BR from '@vee-validate/i18n/dist/locale/pt_BR.json';
 import formsFieldNames from '~/support/formsFieldNames';
@@ -15,6 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   defineRule('confirmed', confirmed);
   defineRule('min_value', min_value);
   defineRule('max_value', max_value);
+  defineRule('integer', integer);
 
   defineRule('strongPassword', value => {
     if (!value || !value.length) {

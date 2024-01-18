@@ -45,7 +45,7 @@
                 </slot>
               </div>
             </td>
-            <td v-if="typeof actions === 'boolean' ? actions : actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-center lg:justify-end items-center gap-1">
+            <td v-if="typeof actions === 'boolean' ? actions : actions?.length" class="!whitespace-normal border-b-0 bg-transparent px-3 py-2 lg:py-4 flex justify-center lg:justify-end items-center gap-4 lg:gap-1">
               <slot name="actions" :item="item">
                 <div class="flex justify-end gap-4 lg:gap-2 cursor-pointer">
                   <div

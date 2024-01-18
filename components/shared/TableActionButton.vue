@@ -1,7 +1,7 @@
 <template>
   <div
-    class="tooltip tooltip-left cursor-pointer"
-    :data-tip="label"
+    class="cursor-pointer"
+    :title="label"
     :class="actionClasses"
     @click="emit('onClick')"
   >
