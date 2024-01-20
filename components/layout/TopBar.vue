@@ -7,7 +7,7 @@
     />
     <NuxtLink to="/" class="flex justify-center items-center">
       <img
-        src="/images/light-logo.png"
+        :src="colorMode?.value === 'darkTheme' ? '/images/dark-logo.png' : '/images/light-logo.png'"
         alt="logo"
         class="h-10 sm:h-8 w-max"
       >
@@ -45,6 +45,8 @@ import ThemeSelector from '~/components/shared/ThemeSelector.vue';
 
 const authStore = useAuth()
 const router = useRouter()
+
+const colorMode = useColorMode();
 
 function logout() {
   authStore.logout()

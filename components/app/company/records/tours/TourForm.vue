@@ -34,13 +34,13 @@
         />
       </VeeField>
       <VeeField
-        v-slot="{ field, errors }"
+        v-slot="{ errors }"
         v-model="mutableForm.data.priceCents"
         name="priceCents"
         rules="required|min_value:0"
       >
         <CustomMoneyInput
-          v-model="field.value"
+          v-model="mutableForm.data.priceCents"
           required
           type="text"
           label="Preço"
