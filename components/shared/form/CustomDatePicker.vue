@@ -1,37 +1,39 @@
 <template>
-  <DatePicker
-    v-model="mutableModel"
-    locale="pt"
-    :popover="{ visibility: 'focus' }"
-    :min-date="minDate"
-    :max-date="maxDate"
-    :is-dark="colorMode?.value === 'darkTheme'"
-  >
-    <template #default="{ inputValue, inputEvents }">
-      <label>
-        <span
-          v-if="label"
-          class="text-sm mb-1 ml-2"
-          :class="{ 'requiredField': required }"
-        >{{ label }}</span>
-        <input
-          :value="inputValue"
-          readonly
-          class="input input-bordered w-full focus:outline-none"
-          :class="{'input-error': Array.isArray(errors) && errors.length}"
-          :placeholder="placeholder"
-          v-on="inputEvents"
-        >
-        <div
-          v-if="Array.isArray(errors)"
-          class="h-6 text-error text-center text-sm px-2 break-all whitespace-normal text-ellipsis overflow-hidden"
-          :title="errors[0]"
-        >
-          {{ errors[0] }}
-        </div>
-      </label>
-    </template>
-  </DatePicker>
+  <div>
+    <DatePicker
+      v-model="mutableModel"
+      locale="pt"
+      :popover="{ visibility: 'focus' }"
+      :min-date="minDate"
+      :max-date="maxDate"
+      :is-dark="colorMode?.value === 'darkTheme'"
+    >
+      <template #default="{ inputValue, inputEvents }">
+        <label>
+          <span
+            v-if="label"
+            class="text-sm mb-1 ml-2"
+            :class="{ 'requiredField': required }"
+          >{{ label }}</span>
+          <input
+            :value="inputValue"
+            readonly
+            class="input input-bordered w-full focus:outline-none"
+            :class="{'input-error': Array.isArray(errors) && errors.length}"
+            :placeholder="placeholder"
+            v-on="inputEvents"
+          >
+          <div
+            v-if="Array.isArray(errors)"
+            class="h-6 text-error text-center text-sm px-2 break-all whitespace-normal text-ellipsis overflow-hidden"
+            :title="errors[0]"
+          >
+            {{ errors[0] }}
+          </div>
+        </label>
+      </template>
+    </DatePicker>
+  </div>
 </template>
 
 <script setup>
@@ -52,7 +54,7 @@ const props = defineProps({
   errors: {
     type: Array,
     default() {
-      return []
+      return null
     },
   },
   placeholder: {

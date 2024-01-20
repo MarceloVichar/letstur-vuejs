@@ -44,7 +44,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'default',
+      default: 'delete',
     },
   },
   setup(props, { emit }) {

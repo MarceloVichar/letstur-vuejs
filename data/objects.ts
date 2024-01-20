@@ -1,5 +1,6 @@
 import {UserRolesEnum} from '~/enums/UserRolesEnum';
 import {VehicleTypesEnum} from '~/enums/VehicleTypesEnum';
+import {SaleStatusEnum} from '~/enums/SaleStatusEnum';
 
 interface Opt {
     value: string;
@@ -29,4 +30,9 @@ export const vehicleTypes: Opt[] = [
   { value: VehicleTypesEnum.SUV, label: 'SUV' },
   { value: VehicleTypesEnum.UTILITY, label: 'Utilitário' },
   { value: VehicleTypesEnum.VAN, label: 'Van' },
+];
+
+export const SaleStatus: Opt[] = [
+  { value: SaleStatusEnum.PENDING, label: 'Pendente' },
+  { value: SaleStatusEnum.CONFIRMED, label: 'Confirmada' },
 ];
