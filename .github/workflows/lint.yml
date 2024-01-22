@@ -1,0 +1,42 @@
+name: Check lint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches:
+      - main
+      - develop
+      - feature/**
+      - hotfix/**
+      - release/**
+      - refactor/**
+    paths:
+      - '**.vue'
+      - '**.js'
+      - '**.ts'
+      - '.github/workflows/lint.yml'
+      - 'package-lock.json'
+
+jobs:
+  check-eslint:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: project
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run ESLint - node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint
