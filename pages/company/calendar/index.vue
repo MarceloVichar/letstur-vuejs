@@ -3,11 +3,6 @@
     <h2 class="font-light text-lg">
       Calendário
     </h2>
-    <div class="flex justify-end gap-2 w-full">
-      <NuxtLink class="btn btn-primary" to="/company/events/create">
-        Cadastrar evento
-      </NuxtLink>
-    </div>
     <Calendar v-if="!pending" :events="data?.data" @dateRangeChanged="(info) => setDateRange(info)" />
   </div>
 </template>

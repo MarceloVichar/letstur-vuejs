@@ -46,6 +46,7 @@ export default {
   },
 
   unmounted() {
+    document.body.style.overflow = null
     this.showModal = false
   },
   methods: {
@@ -78,17 +79,14 @@ export default {
 }
 
 .modal-bounce-enter-active {
-  animation: bounce-in 0.4s;
+  animation: bounce-in 0.2s;
 }
 .modal-bounce-leave-active {
-  animation: bounce-in 0.4s reverse;
+  animation: bounce-in 0.2s reverse;
 }
 @keyframes bounce-in {
   0% {
     transform: scale(0);
-  }
-  50% {
-    transform: scale(1.08);
   }
   100% {
     transform: scale(1);

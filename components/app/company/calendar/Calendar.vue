@@ -39,6 +39,12 @@ export default {
           right: 'prev,today,next',
         },
         locale: 'pt-br',
+        dayMaxEventRows: true,
+        views: {
+          dayGridDay: {
+            dayMaxEventRows: false,
+          },
+        },
         buttonText: {
           today: 'Hoje',
           month: 'Mês',
@@ -118,6 +124,14 @@ export default {
 </script>
 
 <style>
+.fc-daygrid-day, .fc-col-header {
+  background-color: theme('colors.base-100') !important;
+}
+
+.fc-day-disabled {
+  background-color: theme('colors.base-300') !important;
+}
+
 .fc-button-primary {
   background-color: theme('colors.primary') !important;
   color: theme('colors.base-100') !important;
@@ -225,6 +239,10 @@ export default {
 .fc-day-grid-container.fc-scroller {
     height: auto!important;
     overflow-y: auto;
+}
+
+.fc-popover {
+  z-index: 20 !important;
 }
 
 @media (max-width: 640px) {
