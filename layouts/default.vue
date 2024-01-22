@@ -16,7 +16,7 @@
         />
       </transition>
       <div class="px-1 lg:px-4 pt-8 lg:pt-6 pb-4 w-full h-full">
-        <div class="text-center text-primary uppercase xl:hidden text-xl mb-4">
+        <div class="text-center text-primary uppercase xl:hidden text-xl mb-6 mt-2">
           {{ pageTitle }}
         </div>
         <slot />

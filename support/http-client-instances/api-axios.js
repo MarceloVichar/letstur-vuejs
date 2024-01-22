@@ -13,6 +13,9 @@ export const apiAxiosInstance = () => {
     headers: requestHeaders,
   })
 
+  const auth = useAuth()
+  const router = useRouter()
+
   instance.interceptors.request.use(
     request => {
       if (useAuth().getToken) {
@@ -28,13 +31,16 @@ export const apiAxiosInstance = () => {
   instance.interceptors.response.use(
     response => response,
     error => {
-      // if (error?.response?.status === 401) {
-      //   if (useAuth().isAuthenticated) {
-      //     useAuth().logout().finally(() => {
-      //       useRouter().push('/auth/login')
-      //     })
-      //   }
-      // }
+      if (error?.response?.status === 401) {
+        if (auth.isAuthenticated) {
+          auth.logout().finally(() => {
+            auth.removeAuthInfo()
+            router.push('/auth/login')
+          })
+        } else {
+          router.push('/auth/login')
+        }
+      }
       return Promise.reject(error)
     },
   )
