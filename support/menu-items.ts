@@ -1,7 +1,7 @@
 import type {UserRolesEnum} from '~/enums/UserRolesEnum';
 
 interface MenuItem {
-    path: string
+    path?: string
     label: string
     icon?: string
     role?: UserRolesEnum[]|UserRolesEnum
@@ -34,80 +34,79 @@ const menuItems: MenuItems = {
   ],
   company: [
     {
-      path: '/client/home',
+      path: '/company/home',
       label: 'Dashboard',
       icon: 'ic:baseline-house',
-      children: [],
     },
     {
-      path: '/client/companies',
-      label: 'companies',
-      icon: 'ic:baseline-house',
-      children: [],
+      path: '/company/users',
+      label: 'Usuários',
+      icon: 'ph:users-fill',
+      permission: 'users view any',
     },
     {
-      label: 'financial',
-      icon: 'ic:baseline-calculate',
-      path: '/client/financial',
-      children: [
-        {
-          path: '/client/financial/bank-accounts',
-          label: 'bank_accounts',
-          icon: 'ic:baseline-wallet',
-        },
-        {
-          path: '/client/financial/balance',
-          label: 'balance',
-          icon: 'ic:baseline-balance',
-        },
-        {
-          path: '/client/financial/payments-solicitations',
-          label: 'payments_solicitations',
-          icon: 'ic:baseline-payments',
-        },
-      ],
-    },
-    {
-      label: 'transactions',
-      icon: 'ic:baseline-pix',
-      path: '/client/transactions',
-      children: [
-        {
-          path: '/client/transactions/deposits',
-          label: 'deposits',
-          icon: 'ic:baseline-arrow-forward',
-        },
-        {
-          path: '/client/transactions/saidas',
-          label: 'Saídas',
-          icon: 'ic:baseline-arrow-back',
-        },
-        {
-          path: '/client/transactions/returns',
-          label: 'returns',
-          icon: 'ic:baseline-currency-exchange',
-        },
-        {
-          path: '/client/transactions/refunds',
-          label: 'refunds',
-          icon: 'ic:baseline-currency-exchange',
-        },
-      ],
-    },
-    {
-      label: 'explore',
+      label: 'Eventos',
       icon: 'ic:baseline-explore',
-      path: '/client/explore',
+      path: '/company/events',
+      permission: 'events view any',
+    },
+    {
+      path: '/company/sales',
+      label: 'Vendas',
+      icon: 'ic:baseline-house',
+      permission: 'sales view any',
+    },
+    {
+      path: '/company/calendar',
+      label: 'Calendário',
+      icon: 'ic:baseline-house',
+      permission: 'events view any',
+    },
+    {
+      label: 'Passeios',
+      icon: 'ic:baseline-house',
       children: [
         {
-          path: '/client/webhooks',
-          label: 'Webhooks',
-          icon: 'ic:baseline-send',
+          path: '/company/records/tours',
+          label: 'Ver passeios',
+          icon: 'ic:baseline-house',
+          permission: 'tours view any',
         },
         {
-          path: '/client/configs',
-          label: 'configs',
-          icon: 'ic:baseline-engineering',
+          path: '/company/records/tour-types',
+          label: 'Tipos de passeios',
+          icon: 'ic:baseline-house',
+          permission: 'tour-types view any',
+        },
+        {
+          path: '/company/records/locales',
+          label: 'Locais',
+          icon: 'ic:baseline-house',
+          permission: 'locales view any',
+        },
+      ],
+    },
+    {
+      label: 'Cadastros',
+      icon: 'ic:baseline-house',
+      children: [
+        {
+          path: '/company/records/vehicles',
+          label: 'Veículos',
+          icon: 'ic:baseline-house',
+          permission: 'vehicles view any',
+        },
+        {
+          path: '/company/records/drivers',
+          label: 'Motoristas',
+          icon: 'ic:baseline-house',
+          permission: 'drivers view any',
+        },
+        {
+          path: '/company/records/tour-guides',
+          label: 'Guias de passeio',
+          icon: 'ic:baseline-house',
+          permission: 'tour-guides view any',
         },
       ],
     },

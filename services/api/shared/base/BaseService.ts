@@ -49,7 +49,7 @@ export abstract class BaseService<T> implements ServiceInterface{
     }
   }
 
-  async get(id: number, options: any = {}): Promise<RequestType<T>> {
+  async get(id: number|string, options: any = {}): Promise<RequestType<T>> {
     if (this.except.includes('get')) {
       throw new Error('Get method not allowed');
     }
@@ -73,7 +73,7 @@ export abstract class BaseService<T> implements ServiceInterface{
     }
   }
 
-  async update(id: number, data: any): Promise<RequestType<any>> {
+  async update(id: number|string, data: any): Promise<RequestType<any>> {
     if (this.except.includes('update')) {
       throw new Error('Update method not allowed');
     }
@@ -86,7 +86,7 @@ export abstract class BaseService<T> implements ServiceInterface{
     }
   }
 
-  async destroy(id: number): Promise<any> {
+  async destroy(id: number|string): Promise<any> {
     if (this.except.includes('destroy')) {
       throw new Error('Destroy method not allowed');
     }

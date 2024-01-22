@@ -1,5 +1,4 @@
 import {useToast} from 'vue-toastification'
-import axios from 'axios'
 import {useAuth} from '~/store/auth';
 
 export const useNotify = (type = 'success', text = '', options = {}) => {

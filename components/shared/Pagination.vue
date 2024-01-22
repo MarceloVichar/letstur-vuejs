@@ -35,7 +35,7 @@
         &gt;&gt;
       </button>
     </nav>
-    <p class="text-xs">
+    <p class="text-xs hidden sm:block">
       {{ totalItems }} itens
     </p>
   </div>
@@ -57,7 +57,7 @@ const props = defineProps({
   },
   displayedPagesCount: {
     type: Number,
-    default: 5,
+    default: 3,
   },
 });
 
@@ -126,7 +126,7 @@ const goToLastPage = () => {
 }
 
 .pagination-btn:hover {
-  background-color: #e2e8f0;
+  background-color: theme('colors.base-100')
 }
 
 .active-pagination-btn {

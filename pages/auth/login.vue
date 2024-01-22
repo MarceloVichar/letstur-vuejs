@@ -61,14 +61,13 @@ const authStore = useAuth()
 const form = reactive({
   errors: [],
   data: {
-    email: 'admin@letsgrow.com.br',
+    email: 'company_admin@letsgrow.com.br',
     password: '12345678',
   },
 })
 
 async function onSubmit() {
   isSending.value = true
-  console.log('entrou')
   await authStore.login(form.data)
     .then(() => {
       navigateTo('/')

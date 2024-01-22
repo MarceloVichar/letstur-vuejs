@@ -17,6 +17,7 @@
     <div
       v-if="Array.isArray(props.errors)"
       class="h-6 text-error text-center text-sm px-2 break-all whitespace-normal text-ellipsis overflow-hidden"
+      :title="props.errors[0]"
     >
       {{ props.errors[0] }}
     </div>

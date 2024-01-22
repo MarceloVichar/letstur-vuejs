@@ -6,7 +6,5 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const apiHttpClient = new AxiosClient(apiAxiosInstance(config?.public?.apiBaseUrl))
 
-  console.log(config?.public?.apiBaseUrl)
-
   nuxtApp.provide('apiHttpClient', apiHttpClient)
 });

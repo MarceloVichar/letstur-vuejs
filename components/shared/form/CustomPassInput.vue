@@ -25,6 +25,7 @@
     <div
       v-if="Array.isArray(errors)"
       class="h-6 text-error text-center text-sm px-2 break-all whitespace-normal text-ellipsis overflow-hidden"
+      :title="errors[0]"
     >
       {{ errors[0] }}
     </div>
@@ -59,6 +60,7 @@ export default {
       default: '',
     },
   },
+  emits: ['input'],
   data() {
     return {
       showPassword: false,

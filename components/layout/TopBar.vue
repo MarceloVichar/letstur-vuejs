@@ -1,20 +1,19 @@
 <template>
   <div
-    class="px-2 py-1 min-h-min grid grid-cols-3 items-center bg-primary text-base-100"
+    class="py-2 sm:py-1 min-h-min flex justify-between items-center bg-primary text-base-100"
   >
-    <div class="">
-      <LayoutTopbarHamburger
-        class="xl:hidden flex items-center"
-        @openSidebar="emits('openSidebar')"
-      />
-      <Breadcrumb class="hidden xl:block px-2" />
-    </div>
-    <div class="flex justify-center items-center">
+    <LayoutTopbarHamburger
+      class="xl:hidden flex items-center"
+    />
+    <NuxtLink to="/" class="flex justify-center items-center">
       <img
-        src="/images/light-logo.png"
+        :src="colorMode?.value === 'darkTheme' ? '/images/dark-logo.png' : '/images/light-logo.png'"
         alt="logo"
-        class="h-8 w-max"
+        class="h-10 sm:h-8 w-max"
       >
+    </NuxtLink>
+    <div v-if="title" class="hidden xl:block font-light uppercase text-lg">
+      {{ title }}
     </div>
     <div class="flex justify-end gap-2">
       <ThemeSelector class="scale-125 mr-1" />
@@ -45,12 +44,18 @@
 
 <script setup>
 import { useAuth } from '~/store/auth';
-import Breadcrumb from '~/components/layout/topbar/Breadcrumb.vue';
 import ThemeSelector from '~/components/shared/ThemeSelector.vue';
 
-const emits = defineEmits(['openSidebar'])
 const authStore = useAuth()
 const router = useRouter()
+const colorMode = useColorMode();
+
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+})
 
 function logout() {
   authStore.logout()
