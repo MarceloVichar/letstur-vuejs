@@ -49,6 +49,7 @@ export default {
       default: false,
     },
   },
+  emits: ['closeMenu', 'openMenu'],
   data() {
     return {
       pathRoute: this.$route.path,

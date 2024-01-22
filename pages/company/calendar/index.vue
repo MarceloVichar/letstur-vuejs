@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="font-light text-lg">
-      Calendário
-    </h2>
     <Calendar v-if="!pending" :events="data?.data" @dateRangeChanged="(info) => setDateRange(info)" />
   </div>
 </template>

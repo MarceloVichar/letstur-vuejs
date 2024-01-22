@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -18,6 +16,7 @@
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import VehicleForm from '~/components/app/company/records/vehicles/VehicleForm.vue';
 import VehicleService from '~/services/api/company/records/vehicle/VehicleService';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'vehicles create',

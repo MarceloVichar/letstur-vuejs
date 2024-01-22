@@ -45,7 +45,7 @@ import {DatePicker} from 'v-calendar';
 
 const colorMode = useColorMode();
 
-const props = defineProps({
+defineProps({
   modelValue: {
     type: [String, Number, Date],
     required: true,

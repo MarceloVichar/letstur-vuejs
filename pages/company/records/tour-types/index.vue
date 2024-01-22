@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="font-light text-lg">
-      TIPOS DE PASSEIO
-    </h2>
     <div class="flex flex-col-reverse md:flex-row gap-2 w-full">
       <SearchInput
         :model-value="getQueryParam('filter[name]', '')"
@@ -10,9 +7,7 @@
         placeholder="Pesquisar tipo de passeio por nome"
         @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <NuxtLink class="btn btn-primary" to="/company/records/tour-types/create">
-        Cadastrar
-      </NuxtLink>
+      <AddEntityButton to="/company/records/tour-types/create" />
     </div>
     <TourTypesTable
       :data="data?.data"
@@ -31,6 +26,7 @@ import SearchInput from '~/components/shared/form/SearchInput.vue';
 import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
 import TourTypesTable from '~/components/app/company/records/tour-types/TourTypesTable.vue';
 import TourTypeService from '~/services/api/company/records/tour-type/TourTypeService';
+import AddEntityButton from '~/components/shared/AddEntityButton.vue';
 
 const tourTypesService = new TourTypeService()
 const route = useRoute()

@@ -175,7 +175,6 @@ import SubmitButton from '~/components/shared/form/SubmitButton.vue';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
 import MaskedInput from '~/components/shared/form/MaskedInput.vue';
 import {CnhTypesEnum} from '~/enums/CnhTypesEnum';
-import CustomDatePicker from '~/components/shared/form/CustomDatePicker.vue';
 import {vehicleTypes} from '~/data/objects';
 
 const props = defineProps({

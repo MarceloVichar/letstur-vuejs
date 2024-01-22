@@ -53,10 +53,7 @@ import CustomTable from '~/components/shared/CustomTable.vue';
 import {useFormattedDateTime} from '~/composables/format-field-helpers';
 import TableActionButton from '~/components/shared/TableActionButton.vue';
 import Can from '~/components/shared/Can.vue';
-import {useAuth} from '~/store/auth';
 import {vehicleTypes} from '~/data/objects';
-
-const auth = useAuth()
 
 const headers = [
   {value: 'model', label: 'Modelo'},

@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="font-light text-lg">
-      USUÁRIOS
-    </h2>
     <div class="flex flex-col-reverse md:flex-row gap-2 w-full">
       <SearchInput
         :model-value="getQueryParam('filter[name]', '')"
@@ -19,9 +16,7 @@
         :model-value="getQueryParam('filter[role]', '')"
         @update:modelValue="setQueryParam('filter[role]', $event)"
       />
-      <NuxtLink class="btn btn-primary" to="/company/users/create">
-        Cadastrar
-      </NuxtLink>
+      <AddEntityButton to="/company/users/create" />
     </div>
     <UsersTable
       :data="data?.data"
@@ -42,6 +37,7 @@ import UsersTable from '~/components/app/company/users/UsersTable.vue';
 import UserService from '~/services/api/company/user/UserService';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
 import {companyUserRoles} from '~/data/objects';
+import AddEntityButton from '~/components/shared/AddEntityButton.vue';
 
 const usersService = new UserService()
 const route = useRoute()

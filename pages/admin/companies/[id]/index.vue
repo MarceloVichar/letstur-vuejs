@@ -1,9 +1,7 @@
 <template>
   <div class="">
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl mb-4">
@@ -45,6 +43,7 @@ import DataList from '~/components/shared/DataList.vue';
 import CompanyService from '~/services/api/admin/CompanyService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import {useFormattedDocument, useFormattedPhone} from '~/composables/format-field-helpers';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 const route = useRoute()
 const router = useRouter()

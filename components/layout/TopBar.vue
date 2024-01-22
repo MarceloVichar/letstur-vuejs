@@ -12,6 +12,9 @@
         class="h-10 sm:h-8 w-max"
       >
     </NuxtLink>
+    <div v-if="title" class="hidden xl:block font-light uppercase text-lg">
+      {{ title }}
+    </div>
     <div class="flex justify-end gap-2">
       <ThemeSelector class="scale-125 mr-1" />
       <div class="flex items-center gap-4">
@@ -45,8 +48,14 @@ import ThemeSelector from '~/components/shared/ThemeSelector.vue';
 
 const authStore = useAuth()
 const router = useRouter()
-
 const colorMode = useColorMode();
+
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+})
 
 function logout() {
   authStore.logout()

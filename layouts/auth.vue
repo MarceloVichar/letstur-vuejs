@@ -25,8 +25,6 @@
 </template>
 
 <script setup>
-import {useLayout} from '~/store/layout';
 import ThemeSelector from '~/components/shared/ThemeSelector.vue';
 
-const layout = useLayout()
 </script>
