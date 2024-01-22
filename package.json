@@ -25,6 +25,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/vue3": "^6.1.10",
     "@headlessui/vue": "^1.7.17",
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",

@@ -21,34 +21,32 @@
 <script>
 export default {
   name: 'Modal',
-
-  props: {
-    show: {
-      type: Boolean,
-      default: true,
-    },
-  },
+  emits: ['close'],
   data () {
     return {
       showModal: false,
     }
   },
-  head () {
-    return {
-      bodyAttrs: {
-        class: this.show ? '' : '',
-      },
-    }
-  },
   watch: {
-    show: {
+    showModal: {
       handler (val) {
-        setTimeout(() => {
-          this.showModal = val
-        })
+        if (val) {
+          document.body.style.overflow = 'hidden'
+        } else {
+          document.body.style.overflow = null
+        }
       },
       immediate: true,
     },
+  },
+  created() {
+    setTimeout(() => {
+      this.showModal = true
+    })
+  },
+
+  unmounted() {
+    this.showModal = false
   },
   methods: {
     closeModal () {
