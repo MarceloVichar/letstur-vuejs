@@ -27,7 +27,7 @@
     }
 
     .bg-login-background {
-        background-image: url('~/images/loginBackground.jpg');
+        background-image: url('~/public/images/loginBackground.jpg');
     }
 
     .Vue-Toastification__toast.custom {
