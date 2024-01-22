@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -24,6 +22,7 @@ import AuthService from '~/services/api/auth/AuthService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import {useAuth} from '~/store/auth';
 import ProfileForm from '~/components/app/shared/profile/ProfileForm.vue';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 const authService = new AuthService()
 const auth = useAuth()

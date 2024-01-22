@@ -35,7 +35,7 @@
         &gt;&gt;
       </button>
     </nav>
-    <p class="text-xs">
+    <p class="text-xs hidden sm:block">
       {{ totalItems }} itens
     </p>
   </div>
@@ -57,7 +57,7 @@ const props = defineProps({
   },
   displayedPagesCount: {
     type: Number,
-    default: 5,
+    default: 3,
   },
 });
 

@@ -47,6 +47,7 @@ export default {
       default: 'delete',
     },
   },
+  emits: ['confirm', 'cancel'],
   setup(props, { emit }) {
     const show = ref(true)
 

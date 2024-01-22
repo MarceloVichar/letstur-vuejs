@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useAuth} from '~/store/auth';
 
-export const apiAxiosInstance = (baseUrl) => {
+export const apiAxiosInstance = () => {
   const requestHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -12,6 +12,9 @@ export const apiAxiosInstance = (baseUrl) => {
     withCredentials: true,
     headers: requestHeaders,
   })
+
+  const auth = useAuth()
+  const router = useRouter()
 
   instance.interceptors.request.use(
     request => {
@@ -28,13 +31,16 @@ export const apiAxiosInstance = (baseUrl) => {
   instance.interceptors.response.use(
     response => response,
     error => {
-      // if (error?.response?.status === 401) {
-      //   if (useAuth().isAuthenticated) {
-      //     useAuth().logout().finally(() => {
-      //       useRouter().push('/auth/login')
-      //     })
-      //   }
-      // }
+      if (error?.response?.status === 401) {
+        if (auth.isAuthenticated) {
+          auth.logout().finally(() => {
+            auth.removeAuthInfo()
+            router.push('/auth/login')
+          })
+        } else {
+          router.push('/auth/login')
+        }
+      }
       return Promise.reject(error)
     },
   )

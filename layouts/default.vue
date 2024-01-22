@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-200 min-h-screen">
-    <TopBar class="fixed w-full top-0 z-[15]" />
+    <TopBar class="fixed w-full top-0 z-[15]" :title="pageTitle" />
     <div
       class="sidebarContainer absolute xl:fixed left-0 top-0 h-screen bg-base-100 pt-12 flex flex-col z-10 overflow-x-hidden"
       :class="{ 'w-0 xl:w-64': !layout.sidebarIsOpen, 'w-full sm:w-64': layout.sidebarIsOpen }"
@@ -15,7 +15,10 @@
           @click="layout.closeSidebar()"
         />
       </transition>
-      <div class="px-1 lg:px-4 pt-6 pb-4 w-full h-full">
+      <div class="px-1 lg:px-4 pt-8 lg:pt-6 pb-4 w-full h-full">
+        <div class="text-center text-primary uppercase xl:hidden text-xl mb-6 mt-2">
+          {{ pageTitle }}
+        </div>
         <slot />
       </div>
     </div>
@@ -28,6 +31,16 @@ import SideBar from '~/components/layout/SideBar.vue';
 import {useLayout} from '~/store/layout';
 
 const layout = useLayout()
+const route = useRoute()
+const pageTitle = ref('')
+
+watch(
+  () => route.path,
+  _debounce(() => {
+    pageTitle.value = document?.title || ''
+  }, 10),
+  { immediate: true },
+)
 
 </script>
 

@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="font-light text-lg">
-      Veículos
-    </h2>
     <div class="flex flex-col-reverse md:flex-row gap-2 w-full">
       <SearchInput
         :model-value="getQueryParam('filter[model]', '')"
@@ -10,9 +7,7 @@
         placeholder="Pesquisar veículo por modelo"
         @update:modelValue="setQueryParam('filter[model]', $event)"
       />
-      <NuxtLink class="btn btn-primary" to="/company/records/vehicles/create">
-        Cadastrar
-      </NuxtLink>
+      <AddEntityButton to="/company/records/vehicles/create" />
     </div>
     <VehiclesTable
       :data="data?.data"
@@ -31,6 +26,7 @@ import SearchInput from '~/components/shared/form/SearchInput.vue';
 import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
 import VehiclesTable from '~/components/app/company/records/vehicles/VehiclesTable.vue';
 import VehicleService from '~/services/api/company/records/vehicle/VehicleService';
+import AddEntityButton from '~/components/shared/AddEntityButton.vue';
 
 const vehiclesService = new VehicleService()
 const route = useRoute()

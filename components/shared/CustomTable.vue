@@ -20,8 +20,8 @@
 
       <tbody class="grid grid-cols-1 md:grid-cols-2 md:gap-5 lg:table-row-group">
         <slot name="body" :items="items">
-          <tr v-if="loading">
-            <td colspan="100%">
+          <tr v-if="loading" class="col-span-2">
+            <td colspan="100%" class="block lg:table-cell">
               <div class="flex justify-center my-12">
                 <Loader class="mx-auto align-top" />
               </div>
@@ -66,9 +66,9 @@
               </slot>
             </td>
           </tr>
-          <tr v-if="isEmpty(items)">
+          <tr v-if="isEmpty(items)" class="col-span-2">
             <slot name="emptyBody">
-              <td class="text-lg text-gray-600 text-center !py-12 font-bold" colspan="100%">
+              <td class="block lg:table-cell text-lg text-gray-600 text-center !py-12 font-bold" colspan="100%">
                 <label>Nenhum item encontrado</label>
               </td>
             </slot>

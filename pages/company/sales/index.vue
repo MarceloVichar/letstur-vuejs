@@ -1,12 +1,7 @@
 <template>
   <div class="flex flex-col gap-2">
-    <h2 class="font-light text-lg">
-      Vendas
-    </h2>
     <div class="flex justify-end">
-      <NuxtLink class="btn btn-primary" to="/company/sales/create">
-        Nova venda
-      </NuxtLink>
+      <AddEntityButton to="/company/sales/create" text="Nova venda" />
     </div>
     <SalesFiltersForm />
     <SalesTable
@@ -23,11 +18,11 @@
 </template>
 
 <script setup>
-import SearchInput from '~/components/shared/form/SearchInput.vue';
-import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
+import {setQueryParam, useRouteQueryWatcher} from '~/composables/route-helpers';
 import SalesTable from '~/components/app/company/sales/SalesTable.vue';
 import SaleService from '~/services/api/company/sale/SaleService';
 import SalesFiltersForm from '~/components/app/company/sales/SalesFiltersForm.vue';
+import AddEntityButton from '~/components/shared/AddEntityButton.vue';
 
 const salesService = new SaleService()
 const route = useRoute()

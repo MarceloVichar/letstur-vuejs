@@ -7,18 +7,15 @@
       v-for="(page, index) in availablePages"
       :key="index"
     >
-      <nuxt-link
-        v-if="!page?.children || !page.children?.length"
-        :to="page.path"
+      <button
+        v-if="(!page?.children || !page.children?.length) && page?.path"
+        class="btn btn-ghost flex gap-3 flex-nowrap w-full justify-start"
+        :class="{ 'text-secondary': activeLink(page.path) }"
+        @click="navigate(page.path)"
       >
-        <button
-          class="btn btn-ghost flex gap-3 flex-nowrap w-full justify-start"
-          :class="{ 'text-secondary': activeLink(page.path) }"
-        >
-          <Icon :name="page.icon" />
-          {{ page.label }}
-        </button>
-      </nuxt-link>
+        <Icon :name="page.icon" />
+        {{ page.label }}
+      </button>
       <div v-else>
         <DropDown
           :item="page"
@@ -43,7 +40,7 @@ const route = reactive(useRoute())
 const layout = useLayout()
 
 const availablePages = computed(() => {
-  const pages = useAuth()?.isAdmin ? menuItems['admin'] : menuItems['company']
+  const pages = useAuth()?.isAdmin ? menuItems?.admin : menuItems?.company
   return getAccessibleRoutes(pages)
 })
 
@@ -66,20 +63,11 @@ onMounted(() => {
   }
 })
 
-// const getAccessibleRoutes = (menuItems) => {
-//   return menuItems.filter(item => {
-//     const hasRequiredRole = item.role ? hasRole(item.role) : true;
-//     const hasRequiredPermission = item.permission ? hasPermission(item.permission) : true;
-//
-//     if (hasRequiredRole && hasRequiredPermission) {
-//       if (item.children) {
-//         item.children = getAccessibleRoutes(item.children);
-//       }
-//       return true;
-//     }
-//     return false;
-//   });
-// }
+const navigate = (path) => {
+  if (!activeLink(path)) {
+    navigateTo(path)
+  }
+}
 
 const getAccessibleRoutes = (menuItems) => {
   return menuItems.filter(item => {
@@ -88,8 +76,14 @@ const getAccessibleRoutes = (menuItems) => {
 
     let childrenHavePermission = true;
     if (item.children && item.children?.length) {
-      item.children = getAccessibleRoutes(item.children);
-      childrenHavePermission = item.children.length > 0;
+      const childrenHaveRequiredRole = item.children.every(child => child.role ? hasRole(child.role) : true);
+      const childrenHaveRequiredPermission = item.children.every(child => child.permission ? hasPermission(child.permission) : true);
+      if (childrenHaveRequiredRole && childrenHaveRequiredPermission) {
+        item.children = getAccessibleRoutes(item.children);
+        childrenHavePermission = item.children.length > 0;
+      } else {
+        childrenHavePermission = false;
+      }
     }
 
     return hasRequiredRole && hasRequiredPermission && childrenHavePermission;

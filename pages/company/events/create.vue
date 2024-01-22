@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -18,6 +16,7 @@
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import EventForm from '~/components/app/company/events/EventForm.vue';
 import EventService from '~/services/api/company/event/EventService';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'events create',

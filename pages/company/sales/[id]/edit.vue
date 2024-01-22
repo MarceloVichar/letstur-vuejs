@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Cancelar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -23,6 +21,7 @@
 import SaleService from '~/services/api/company/sale/SaleService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import SaleForm from '~/components/app/company/sales/SaleForm.vue';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'sales update',

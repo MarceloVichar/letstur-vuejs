@@ -58,7 +58,6 @@
 <script setup>
 import CustomInput from '~/components/shared/form/CustomInput.vue';
 import SubmitButton from '~/components/shared/form/SubmitButton.vue';
-import MaskedInput from '~/components/shared/form/MaskedInput.vue';
 import CustomColorInput from '~/components/shared/form/CustomColorInput.vue';
 
 const props = defineProps({

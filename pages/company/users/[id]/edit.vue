@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -23,6 +21,7 @@
 import UserService from '~/services/api/company/user/UserService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import UserForm from '~/components/app/company/users/UserForm.vue';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'users update',

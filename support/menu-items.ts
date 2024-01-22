@@ -1,7 +1,7 @@
 import type {UserRolesEnum} from '~/enums/UserRolesEnum';
 
 interface MenuItem {
-    path: string
+    path?: string
     label: string
     icon?: string
     role?: UserRolesEnum[]|UserRolesEnum
@@ -63,7 +63,6 @@ const menuItems: MenuItems = {
       permission: 'events view any',
     },
     {
-      path: '/company/tours',
       label: 'Passeios',
       icon: 'ic:baseline-house',
       children: [
@@ -88,7 +87,6 @@ const menuItems: MenuItems = {
       ],
     },
     {
-      path: '/company',
       label: 'Cadastros',
       icon: 'ic:baseline-house',
       children: [

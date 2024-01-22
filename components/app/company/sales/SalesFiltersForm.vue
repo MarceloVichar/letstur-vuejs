@@ -47,7 +47,6 @@
 <script setup>
 import SearchInput from '~/components/shared/form/SearchInput.vue';
 import CustomDatePicker from '~/components/shared/form/CustomDatePicker.vue';
-import CustomInput from '~/components/shared/form/CustomInput.vue';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
 import {SaleStatus} from '~/data/objects';
 </script>

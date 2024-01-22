@@ -1,9 +1,7 @@
 <template>
   <div class="">
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl mb-4">
@@ -36,6 +34,7 @@ import DataList from '~/components/shared/DataList.vue';
 import TourGuideService from '~/services/api/company/records/tour-guide/TourGuideService';
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import {useFormattedDateTime} from '~/composables/format-field-helpers';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'tour-guides view',

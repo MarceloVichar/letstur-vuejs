@@ -1,8 +1,5 @@
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="font-light text-lg">
-      EMPRESAS
-    </h2>
     <div class="flex gap-2 w-full">
       <SearchInput
         :model-value="getQueryParam('filter[name]', '')"

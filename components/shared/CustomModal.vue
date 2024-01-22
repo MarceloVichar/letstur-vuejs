@@ -21,34 +21,33 @@
 <script>
 export default {
   name: 'Modal',
-
-  props: {
-    show: {
-      type: Boolean,
-      default: true,
-    },
-  },
+  emits: ['close'],
   data () {
     return {
       showModal: false,
     }
   },
-  head () {
-    return {
-      bodyAttrs: {
-        class: this.show ? '' : '',
-      },
-    }
-  },
   watch: {
-    show: {
+    showModal: {
       handler (val) {
-        setTimeout(() => {
-          this.showModal = val
-        })
+        if (val) {
+          document.body.style.overflow = 'hidden'
+        } else {
+          document.body.style.overflow = null
+        }
       },
       immediate: true,
     },
+  },
+  created() {
+    setTimeout(() => {
+      this.showModal = true
+    })
+  },
+
+  unmounted() {
+    document.body.style.overflow = null
+    this.showModal = false
   },
   methods: {
     closeModal () {
@@ -80,17 +79,14 @@ export default {
 }
 
 .modal-bounce-enter-active {
-  animation: bounce-in 0.4s;
+  animation: bounce-in 0.2s;
 }
 .modal-bounce-leave-active {
-  animation: bounce-in 0.4s reverse;
+  animation: bounce-in 0.2s reverse;
 }
 @keyframes bounce-in {
   0% {
     transform: scale(0);
-  }
-  50% {
-    transform: scale(1.08);
   }
   100% {
     transform: scale(1);

@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="mb-2">
-      <button class="btn btn-secondary" @click="$router.back()">
-        Voltar
-      </button>
+      <BackScreenButton />
     </div>
     <CentralizedContainer>
       <h2 class="text-center font-bold text-xl">
@@ -18,6 +16,7 @@
 import CentralizedContainer from '~/components/shared/CentralizedContainer.vue';
 import TourForm from '~/components/app/company/records/tours/TourForm.vue';
 import TourService from '~/services/api/company/records/tour/TourService';
+import BackScreenButton from '~/components/shared/BackScreenButton.vue';
 
 definePageMeta({
   permission: 'tours create',
