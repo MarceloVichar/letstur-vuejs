@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col gap-2">
     <div class="flex justify-end">
-      <AddEntityButton to="/company/sales/create" text="Nova venda" />
+      <Can permission="sales create" text="Nova venda">
+        <AddEntityButton to="/company/sales/create" />
+      </Can>
     </div>
     <SalesFiltersForm />
     <SalesTable
@@ -23,6 +25,7 @@ import SalesTable from '~/components/app/company/sales/SalesTable.vue';
 import SaleService from '~/services/api/company/sale/SaleService';
 import SalesFiltersForm from '~/components/app/company/sales/SalesFiltersForm.vue';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const salesService = new SaleService()
 const route = useRoute()

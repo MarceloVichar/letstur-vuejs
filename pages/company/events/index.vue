@@ -7,7 +7,9 @@
         placeholder="Pesquisar evento por nome"
         @update:modelValue="setQueryParam('filter[tour]', $event)"
       />
-      <AddEntityButton to="/company/events/create" />
+      <Can permission="events create">
+        <AddEntityButton to="/company/events/create" />
+      </Can>
     </div>
     <EventsTable
       :data="data?.data"
@@ -27,6 +29,7 @@ import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/
 import EventsTable from '~/components/app/company/events/EventsTable.vue';
 import EventService from '~/services/api/company/event/EventService';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const eventsService = new EventService()
 const route = useRoute()
