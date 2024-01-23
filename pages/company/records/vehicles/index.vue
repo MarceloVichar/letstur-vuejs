@@ -7,7 +7,9 @@
         placeholder="Pesquisar veículo por modelo"
         @update:modelValue="setQueryParam('filter[model]', $event)"
       />
-      <AddEntityButton to="/company/records/vehicles/create" />
+      <Can permission="vehicles create">
+        <AddEntityButton to="/company/records/vehicles/create" />
+      </Can>
     </div>
     <VehiclesTable
       :data="data?.data"
@@ -27,6 +29,7 @@ import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/
 import VehiclesTable from '~/components/app/company/records/vehicles/VehiclesTable.vue';
 import VehicleService from '~/services/api/company/records/vehicle/VehicleService';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const vehiclesService = new VehicleService()
 const route = useRoute()

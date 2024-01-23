@@ -7,7 +7,9 @@
         placeholder="Pesquisar tipo de passeio por nome"
         @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <AddEntityButton to="/company/records/tour-types/create" />
+      <Can permission="tour-types create">
+        <AddEntityButton to="/company/records/tour-types/create" />
+      </Can>
     </div>
     <TourTypesTable
       :data="data?.data"
@@ -27,6 +29,7 @@ import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/
 import TourTypesTable from '~/components/app/company/records/tour-types/TourTypesTable.vue';
 import TourTypeService from '~/services/api/company/records/tour-type/TourTypeService';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const tourTypesService = new TourTypeService()
 const route = useRoute()
