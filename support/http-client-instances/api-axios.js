@@ -1,14 +1,14 @@
 import axios from 'axios';
 import {useAuth} from '~/store/auth';
 
-export const apiAxiosInstance = () => {
+export const apiAxiosInstance = (baseUrl) => {
   const requestHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   }
 
   const instance = axios.create({
-    // baseURL: baseUrl,
+    baseURL: baseUrl,
     withCredentials: true,
     headers: requestHeaders,
   })
