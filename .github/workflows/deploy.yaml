@@ -49,4 +49,4 @@ jobs:
 
       - name: S3 Sync
         if: success()
-        run: aws s3 sync .output/ s3://${{ steps.get-bucket-name.outputs.name }}
+        run: aws s3 sync .output/public/ s3://${{ steps.get-bucket-name.outputs.name }}
