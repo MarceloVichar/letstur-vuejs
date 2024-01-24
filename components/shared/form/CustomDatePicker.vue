@@ -94,6 +94,10 @@ watch(
   })
 
 const updateValue = () => {
+  if (!mutableModel.value) {
+    emit('update:modelValue', null)
+    return
+  }
   const value = useDayjs()(mutableModel.value).toString()
   if (props.endOfDay) {
     emit('update:modelValue', useDayjs()(value).endOf('day').toISOString())
