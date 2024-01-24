@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     configPath: '~/tailwind.config.js',
   },
   colorMode: {
-    preference: 'darkTheme',
+    preference: 'lightTheme',
     dataValue: 'theme',
     classSuffix: '',
   },

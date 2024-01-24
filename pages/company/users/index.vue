@@ -16,7 +16,9 @@
         :model-value="getQueryParam('filter[role]', '')"
         @update:modelValue="setQueryParam('filter[role]', $event)"
       />
-      <AddEntityButton to="/company/users/create" />
+      <Can permission="users create">
+        <AddEntityButton to="/company/users/create" />
+      </Can>
     </div>
     <UsersTable
       :data="data?.data"
@@ -38,6 +40,7 @@ import UserService from '~/services/api/company/user/UserService';
 import CustomSelect from '~/components/shared/form/CustomSelect.vue';
 import {companyUserRoles} from '~/data/objects';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const usersService = new UserService()
 const route = useRoute()

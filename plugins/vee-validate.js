@@ -29,19 +29,32 @@ export default defineNuxtPlugin((nuxtApp) => {
     return true
   });
 
-  defineRule('mindate', (value = '', [target] = '') => {
-    if(!value || !target)
+  defineRule('minDate', (value = '', [target] = '') => {
+    if (!value || !target)
       return true;
 
-    const dateFrom = target.replace( /(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
-    const dateTo = value.replace( /(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
+    const dateFrom = target.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
+    const dateTo = value.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
 
     if (new Date(dateTo) > new Date(dateFrom)) {
       return true;
     }
-    return 'A data final deve ser posterior a data de início.';
+    return 'A data está abaixo do limite permitido.';
   });
 });
+
+defineRule('maxDate', (value = '', [target] = '') => {
+  if (!value || !target)
+    return true;
+
+  const dateFrom = target.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
+  const dateTo = value.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3');
+
+  if (new Date(dateTo) < new Date(dateFrom)) {
+    return true;
+  }
+  return 'A data está acima do limite permitido.';
+})
 
 defineRule('cnpj', value => {
   if (!value) {

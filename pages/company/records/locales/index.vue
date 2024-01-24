@@ -7,7 +7,9 @@
         placeholder="Pesquisar local por nome"
         @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <AddEntityButton to="/company/records/locales/create" />
+      <Can permission="locales create">
+        <AddEntityButton to="/company/records/locales/create" />
+      </Can>
     </div>
     <LocalesTable
       :data="data?.data"
@@ -27,6 +29,7 @@ import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/
 import LocalesTable from '~/components/app/company/records/locales/LocalesTable.vue';
 import LocaleService from '~/services/api/company/records/locale/LocaleService';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const localesService = new LocaleService()
 const route = useRoute()

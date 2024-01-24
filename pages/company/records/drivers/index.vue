@@ -7,7 +7,9 @@
         placeholder="Pesquisar motorista por nome"
         @update:modelValue="setQueryParam('filter[name]', $event)"
       />
-      <AddEntityButton to="/company/records/drivers/create" />
+      <Can permission="drivers create">
+        <AddEntityButton to="/company/records/drivers/create" />
+      </Can>
     </div>
     <DriversTable
       :data="data?.data"
@@ -27,6 +29,7 @@ import {getQueryParam, setQueryParam, useRouteQueryWatcher} from '~/composables/
 import DriversTable from '~/components/app/company/records/drivers/DriversTable.vue';
 import DriverService from '~/services/api/company/records/driver/DriverService';
 import AddEntityButton from '~/components/shared/AddEntityButton.vue';
+import Can from '~/components/shared/Can.vue';
 
 const driversService = new DriverService()
 const route = useRoute()
