@@ -1,4 +1,4 @@
-# Letstur Laravel API
+# Letstur Laravel Interface
 
 Interface para administração de agências de passeios turísticos, desenvolvida em Nuxt 3
 
